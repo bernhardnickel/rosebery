@@ -1,3 +1,9 @@
 allprojects {
 	apply plugin: 'java'	
+	
+	group = 'at.ac.tuwien.infosys.rosebery'
+	
+	repositories() {
+		mavenCentral()
+	}
 }
