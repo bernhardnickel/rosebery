@@ -13,18 +13,16 @@ import java.io.File;
  *
  * Run with VM argument
  * -javaagent:/opt/aspectj/lib/aspectjweaver.jar
+ * -Drosebery.nodeFactory=at.ac.tuwien.infosys.rosebery.common.factory.node.PropertyFileNodeFactory
+ * -Drosebery.nodeFactoryFile=src/test/resources/at/ac/tuwien/infosys/rosebery/test/storm1/nodes.properties
+ * -Drosebery.publicationService=CLASSPATH
+ *
  */
 public class TestTopology {
     public static void main(String... args) {
-        //Configure node factory
-        //-rosebery.nodeFactory=at.ac.tuwien.infosys.rosebery.common.factory.node.PropertyFileNodeFactory
+        //Set system properties in code for test
         System.setProperty("rosebery.nodeFactory", "at.ac.tuwien.infosys.rosebery.common.factory.node.PropertyFileNodeFactory");
-
-        //-Drosebery.nodeFactoryFile=src/test/resources/at/ac/tuwien/infosys/rosebery/test/storm1/nodes.properties
         System.setProperty("rosebery.nodeFactoryFile", "src/test/resources/at/ac/tuwien/infosys/rosebery/test/storm1/nodes.properties");
-
-        //Configure publication services
-        //-Drosebery.publicationService=CLASSPATH
         System.setProperty("rosebery.publicationService", "CLASSPATH");
 
         startStorm();
