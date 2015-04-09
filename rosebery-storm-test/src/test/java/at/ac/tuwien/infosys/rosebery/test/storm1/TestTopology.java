@@ -5,8 +5,6 @@ import backtype.storm.LocalCluster;
 import backtype.storm.generated.StormTopology;
 import backtype.storm.topology.TopologyBuilder;
 
-import java.io.File;
-
 /**
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  *
@@ -41,7 +39,8 @@ public class TestTopology {
     protected static StormTopology createTestTopology() {
         TopologyBuilder builder = new TopologyBuilder();
         builder.setSpout("test-spout", new TestSpout());
-        builder.setBolt("test-bolt", new TestBolt()).shuffleGrouping("test-spout");
+        builder.setBolt("test-boltA", new TestBoltA()).shuffleGrouping("test-spout");
+        builder.setBolt("test-boltB", new TestBoltB()).shuffleGrouping("test-boltA");
 
 
         return builder.createTopology();
