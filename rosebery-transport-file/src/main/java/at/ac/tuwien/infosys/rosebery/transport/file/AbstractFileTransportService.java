@@ -10,6 +10,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,31 +18,40 @@ import java.util.Map;
  */
 public abstract class AbstractFileTransportService implements PublicationService {
 
-    private Path path;
+    private Map<Class<? extends Measurement>, PrintStream> streams = new HashMap<>();
 
-
-    public void setFile(Path path) {
-        this.path = path;
+    protected <T extends Measurement> void doPublish(T t) throws IOException {
+        Class<? extends Measurement> clazz = t.getClass();
+        PrintStream stream = getPrintStream(clazz);
+        stream.println(getSerializer(clazz).serialize(t));
     }
 
-    public void setFile(String path) {
-        this.path = FileSystems.getDefault().getPath(path);
+    private PrintStream getPrintStream(Class<? extends Measurement> clazz) throws IOException {
+        PrintStream stream = streams.get(clazz);
+
+        if (stream == null) {
+            Path path = FileSystems.getDefault().getPath(getPath(clazz));
+
+            if (!Files.exists(path)) {
+                Files.createFile(path);
+            }
+            stream = new PrintStream(Files.newOutputStream(path, StandardOpenOption.APPEND));
+            streams.put(clazz, stream);
+        }
+
+        return stream;
     }
 
     @Override
     public <T extends Measurement> void publish(T t) {
         try {
-            if (!Files.exists(path)) {
-                Files.createFile(path);
-            }
-
-            PrintStream out = new PrintStream(Files.newOutputStream(path, StandardOpenOption.APPEND));
-            out.println(getSerializer(t.getClass()).serialize(t));
-            out.close();
-        } catch (IOException e) {
+            doPublish(t);
+        } catch(IOException e) {
             throw new RuntimeException(e);
         }
-
     }
+
+    protected abstract String getPath(Class<? extends Measurement> clazz);
+
     public abstract <T extends Measurement> Serializer<T> getSerializer(Class<? extends Measurement> clazz);
 }
