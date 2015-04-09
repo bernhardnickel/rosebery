@@ -2,9 +2,6 @@ package at.ac.tuwien.infosys.rosebery.common.model.measurement;
 
 import at.ac.tuwien.infosys.rosebery.common.model.Node;
 
-import java.io.Serializable;
-import java.util.Date;
-
 /**
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
