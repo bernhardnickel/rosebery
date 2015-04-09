@@ -1,0 +1,5 @@
+description = 'JMX transport classes for rosebery'
+
+dependencies {
+    compile project(':rosebery-common')
+}

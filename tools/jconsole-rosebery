@@ -1,0 +1,2 @@
+#!/bin/bash
+jconsole -J-Djava.class.path=$JAVA_HOME/lib/jconsole.jar:$JAVA_HOME/lib/tools.jar:../rosebery-common/build/libs/rosebery-common.jar $1

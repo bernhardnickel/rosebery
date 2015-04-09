@@ -1,10 +1,9 @@
 package at.ac.tuwien.infosys.rosebery.common.service.publication;
 
-import org.reflections.ReflectionUtils;
+import at.ac.tuwien.infosys.rosebery.common.model.measurement.Measurement;
 import org.reflections.Reflections;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,10 +13,24 @@ import java.util.Set;
 public class DefaultPublicationService implements PublicationService {
     private static final String PUB_SERVICE_SYSTEM_PROPERTY = "rosebery.publicationService";
 
+    private static PublicationService instance = null;
+
     Set<PublicationService> publicationServices = null;
 
+    private DefaultPublicationService() {
+
+    }
+
+    public static PublicationService getInstance() {
+        if (instance == null) {
+            instance = new DefaultPublicationService();
+        }
+
+        return instance;
+    }
+
     @Override
-    public <T extends Serializable> void publish(T t) {
+    public <T extends Measurement> void publish(T t) {
         if (publicationServices == null) {
             initPublicationServices();
         }
@@ -28,9 +41,20 @@ public class DefaultPublicationService implements PublicationService {
     }
 
     private void initPublicationServices() {
-        publicationServices =  new HashSet<>();
+        publicationServices = new HashSet<>();
 
         String className = System.getProperty(PUB_SERVICE_SYSTEM_PROPERTY);
+
+        if ("ALL".equals(className)) {
+            Reflections reflections = new Reflections();
+            Set<Class<? extends PublicationService>> pubServices =  reflections.getSubTypesOf(PublicationService.class);
+
+            for (Class<? extends PublicationService> clazz : pubServices) {
+                if (!clazz.equals(DefaultPublicationService.class)) {
+                    publicationServices.add(newInstance(clazz));
+                }
+            }
+        }
 
         if(className != null) {
             try {
@@ -41,14 +65,6 @@ public class DefaultPublicationService implements PublicationService {
             return;
         }
 
-        Reflections reflections = new Reflections();
-        Set<Class<? extends PublicationService>> pubServices =  reflections.getSubTypesOf(PublicationService.class);
-
-        for (Class<? extends PublicationService> clazz : pubServices) {
-            if (!clazz.equals(DefaultPublicationService.class)) {
-                publicationServices.add(newInstance(clazz));
-            }
-        }
     }
 
     private PublicationService newInstance(Class<? extends PublicationService> clazz) {
@@ -57,10 +73,5 @@ public class DefaultPublicationService implements PublicationService {
         } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static void main(String... args) {
-        DefaultPublicationService ps = new DefaultPublicationService();
-        ps.publish(new Long(1));
     }
 }

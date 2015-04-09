@@ -2,4 +2,5 @@ description = 'Common classes for the rosebery project'
 
 dependencies {
     compile 'org.reflections:reflections:0.9.9'
+    compile 'org.aspectj:aspectjrt:1.8.5'
 }
