@@ -1,0 +1,6 @@
+description = 'spark integration for rosebery'
+
+dependencies {
+    compile project(':rosebery-common')
+    compile 'org.apache.spark:spark-streaming_2.10:1.0.2'
+}
