@@ -5,6 +5,13 @@ allprojects {
 	
 	repositories() {
 		mavenCentral()
+
+		maven {
+			url 'http://oss.sonatype.org/content/repositories/github-releases'
+		}
+		maven {
+			url 'http://clojars.org/repo'
+		}
 	}
 
 	dependencies {

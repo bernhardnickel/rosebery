@@ -24,4 +24,9 @@ public class Node implements Serializable {
     public void setNodePurpose(String nodePurpose) {
         this.nodePurpose = nodePurpose;
     }
+
+    @Override
+    public String toString() {
+        return "Node[" + nodeId + "," + nodePurpose + "]";
+    }
 }

@@ -47,4 +47,9 @@ public class RuntimePerformance implements Measurement {
     public void setExecutionResult(ExecutionResult executionResult) {
         this.executionResult = executionResult;
     }
+
+    @Override
+    public String toString() {
+        return "RuntimePerformance[" + node + "," + nanoStarttime + "," + nanoEndtime + "," + executionResult + "]";
+    }
 }

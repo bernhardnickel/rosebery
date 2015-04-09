@@ -1,4 +1,4 @@
-description = 'Common classes for the rosebery project'
+description = 'Common classes for rosebery'
 
 dependencies {
     compile 'org.reflections:reflections:0.9.9'

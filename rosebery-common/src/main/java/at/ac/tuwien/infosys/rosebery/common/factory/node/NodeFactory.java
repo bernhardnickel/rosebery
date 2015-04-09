@@ -9,7 +9,8 @@ public interface NodeFactory {
 
 
     public Node getNode();
-    public Node getNode(String pointcutId);
+    public Node getNode(String id);
+    public Node getNode(Object jpo);
 
     public static NodeFactory getNodeFactory() {
         return DefaultNodeFactory.getInstance();

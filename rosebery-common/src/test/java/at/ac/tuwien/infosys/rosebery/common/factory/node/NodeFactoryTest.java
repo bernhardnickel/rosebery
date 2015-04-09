@@ -38,4 +38,23 @@ public class NodeFactoryTest {
         assertEquals("myNodeId", node.getNodeId());
         assertEquals("myNodePurpose", node.getNodePurpose());
     }
+
+    @Test
+    public void testPropertyFileNodeFactory() {
+        System.setProperty("rosebery.nodeFactory", "at.ac.tuwien.infosys.rosebery.common.factory.node.PropertyFileNodeFactory");
+        System.setProperty("rosebery.nodeFactoryFile", "src/test/resources/nodes.properties");
+
+        NodeFactory nodeFactory = NodeFactory.getNodeFactory();
+        assertNotNull(nodeFactory);
+
+        Node node = nodeFactory.getNode();
+        assertNotNull(node);
+        assertEquals("myNodeId", node.getNodeId());
+        assertEquals("myNodePurpose", node.getNodePurpose());
+
+        node = nodeFactory.getNode(new Object());
+        assertNotNull(node);
+        assertEquals("objectNodeId", node.getNodeId());
+        assertEquals("objectNodePurpose", node.getNodePurpose());
+    }
 }

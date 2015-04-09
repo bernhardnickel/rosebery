@@ -14,10 +14,10 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public abstract class AbstractRuntimePerformanceAspect {
     @Pointcut
-    abstract void scope();
+    public abstract void scope();
 
-    @Around("scope()")
-    public Object around(ProceedingJoinPoint pjp) throws Throwable {
+    @Around("scope() && this(jpo)")
+    public Object around(ProceedingJoinPoint pjp, Object jpo) throws Throwable {
         Object o = null;
         Throwable t = null;
 
@@ -32,9 +32,9 @@ public abstract class AbstractRuntimePerformanceAspect {
         }
 
         rt.setNanoEndtime(System.nanoTime());
-        rt.setExecutionResult(t != null ? RuntimePerformance.ExecutionResult.OK : RuntimePerformance.ExecutionResult.EXCEPTION);
+        rt.setExecutionResult(t == null ? RuntimePerformance.ExecutionResult.OK : RuntimePerformance.ExecutionResult.EXCEPTION);
 
-        rt.setNode(NodeFactory.getNodeFactory().getNode());
+        rt.setNode(NodeFactory.getNodeFactory().getNode(jpo));
 
         PublicationService.getPublicationService().publish(rt);
 

@@ -1,0 +1,10 @@
+<aspectj>
+    <aspects>
+        <concrete-aspect name="at.ac.tuwien.infosys.rosebery.storm.BasicBoltRuntimePerformanceAspect" extends="at.ac.tuwien.infosys.rosebery.common.aspect.AbstractRuntimePerformanceAspect">
+            <pointcut name="scope" expression="execution(* backtype.storm.topology.base.BaseBasicBolt.execute(..))" />
+        </concrete-aspect>
+        <concrete-aspect name="at.ac.tuwien.infosys.rosebery.storm.BasicSpoutRuntimePerformanceAspect" extends="at.ac.tuwien.infosys.rosebery.common.aspect.AbstractRuntimePerformanceAspect">
+            <pointcut name="scope" expression="execution(* backtype.storm.topology.base.BaseRichSpout.nextTuple(..))" />
+        </concrete-aspect>
+    </aspects>
+</aspectj>

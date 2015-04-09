@@ -15,12 +15,18 @@ public class DefaultNodeFactory implements NodeFactory {
 
     public static NodeFactory getInstance() {
         if (instance == null) {
-            String factoryClass = System.getProperty(NODE_FACTORY_SYSTEM_PROPERTY);
+            synchronized (DefaultNodeFactory.class) {
+                if (instance != null) {
+                    return instance;
+                }
 
-            if (factoryClass == null) {
-                instance = new DefaultNodeFactory();
-            } else {
-                instance = newInstance(factoryClass);
+                String factoryClass = System.getProperty(NODE_FACTORY_SYSTEM_PROPERTY);
+
+                if (factoryClass == null) {
+                    instance = new DefaultNodeFactory();
+                } else {
+                    instance = newInstance(factoryClass);
+                }
             }
         }
 
@@ -50,7 +56,12 @@ public class DefaultNodeFactory implements NodeFactory {
     }
 
     @Override
-    public Node getNode(String pointcutId) {
+    public Node getNode(String id) {
+        return getNode();
+    }
+
+    @Override
+    public Node getNode(Object jpo) {
         return getNode();
     }
 }

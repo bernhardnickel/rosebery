@@ -16,14 +16,20 @@ public class DefaultPublicationService implements PublicationService {
     public static PublicationService getInstance() {
 
         if (instance == null) {
-            String serviceClass = System.getProperty(PUBLICATION_SERVICE_SYSTEM_PROPERTY);
+            synchronized (DefaultPublicationService.class) {
+                if (instance != null) {
+                    return instance;
+                }
 
-            if(serviceClass == null) {
-                instance = new DefaultPublicationService();
-            } else if("ALL".equals(serviceClass)) {
-                instance = new ClassPathScanPublicationService();
-            } else {
-                instance = newInstance(serviceClass);
+                String serviceClass = System.getProperty(PUBLICATION_SERVICE_SYSTEM_PROPERTY);
+
+                if (serviceClass == null) {
+                    instance = new DefaultPublicationService();
+                } else if ("CLASSPATH".equals(serviceClass)) {
+                    instance = new ClassPathScanPublicationService();
+                } else {
+                    instance = newInstance(serviceClass);
+                }
             }
 
         }

@@ -1,0 +1,9 @@
+description = 'rosbery test project'
+
+dependencies {
+    compile project(':rosebery-common')
+    compile project(':rosebery-storm')
+    compile project(':rosebery-transport-jmx')
+
+    compile 'storm:storm:0.9.0.1'
+}
