@@ -29,4 +29,16 @@ public class Node implements Serializable {
     public String toString() {
         return "Node[" + nodeId + "," + nodePurpose + "]";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Node)) {
+            return false;
+        }
+
+        Node node = (Node)obj;
+
+        return (this.nodeId != null ? this.nodeId.equals(node.nodeId) : node.nodeId == null) &&
+                (this.nodePurpose != null ? this.nodePurpose.equals(node.nodePurpose) : node.nodePurpose == null);
+    }
 }

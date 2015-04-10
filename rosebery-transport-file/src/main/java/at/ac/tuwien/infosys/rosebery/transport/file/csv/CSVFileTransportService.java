@@ -1,15 +1,12 @@
 package at.ac.tuwien.infosys.rosebery.transport.file.csv;
 
-import at.ac.tuwien.infosys.rosebery.common.model.Node;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.Measurement;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.RuntimePerformance;
-import at.ac.tuwien.infosys.rosebery.common.service.publication.PublicationService;
 import at.ac.tuwien.infosys.rosebery.transport.file.AbstractFileTransportService;
 import at.ac.tuwien.infosys.rosebery.transport.file.csv.serializer.RuntimePerformanceCsvSerializer;
-import at.ac.tuwien.infosys.rosebery.transport.file.csv.serializer.Serializer;
+import at.ac.tuwien.infosys.rosebery.transport.file.Serializer;
 
 import java.io.File;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 

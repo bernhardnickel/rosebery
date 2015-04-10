@@ -16,6 +16,7 @@ public class TestBoltA extends BaseBasicBolt {
         String val = input.getString(0);
         System.out.println("StormTest1-BoltA:" + val);
 
+
         collector.emit(new Values(val + "tbA"));
     }
 

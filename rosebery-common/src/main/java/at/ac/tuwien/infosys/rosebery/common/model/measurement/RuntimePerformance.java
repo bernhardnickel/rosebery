@@ -40,6 +40,10 @@ public class RuntimePerformance implements Measurement {
         this.nanoEndtime = nanoEndtime;
     }
 
+    public long getDuration() {
+        return nanoEndtime - nanoStarttime;
+    }
+
     public ExecutionResult getExecutionResult() {
         return executionResult;
     }
@@ -50,6 +54,6 @@ public class RuntimePerformance implements Measurement {
 
     @Override
     public String toString() {
-        return "RuntimePerformance[" + node + "," + nanoStarttime + "," + nanoEndtime + "," + executionResult + "]";
+        return "RuntimePerformance[" + node + "," + nanoStarttime + "," + nanoEndtime + "," + getDuration() + "," + executionResult + "]";
     }
 }

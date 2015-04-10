@@ -2,7 +2,6 @@ package at.ac.tuwien.infosys.rosebery.transport.file;
 
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.Measurement;
 import at.ac.tuwien.infosys.rosebery.common.service.publication.PublicationService;
-import at.ac.tuwien.infosys.rosebery.transport.file.csv.serializer.Serializer;
 
 import java.io.IOException;
 import java.io.PrintStream;

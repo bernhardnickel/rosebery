@@ -1,4 +1,4 @@
-package at.ac.tuwien.infosys.rosebery.transport.file.csv.serializer;
+package at.ac.tuwien.infosys.rosebery.transport.file;
 
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.Measurement;
 
@@ -7,5 +7,4 @@ import at.ac.tuwien.infosys.rosebery.common.model.measurement.Measurement;
  */
 public interface Serializer<T extends Measurement> {
     public String serialize(T  t);
-    public Class<T> getMeasurementClass();
 }
