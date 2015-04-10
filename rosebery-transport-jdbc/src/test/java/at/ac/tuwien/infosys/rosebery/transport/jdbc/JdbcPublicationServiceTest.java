@@ -88,6 +88,7 @@ public class JdbcPublicationServiceTest {
 
         service.publish(rt);
 
+        rt.setSequence("t1234");
         rt.setNanoStarttime(10l);
         rt.setNanoEndtime(20l);
 
@@ -112,8 +113,8 @@ public class JdbcPublicationServiceTest {
         pst = con.prepareStatement("SELECT * FROM runtime_performance");
         rs = pst.executeQuery();
 
-        assertRow(rs, 1l, 0l, 10l, 10l, "OK");
-        assertRow(rs, 1l, 10l, 20l, 10l, "OK");
+        assertRow(rs, 1l, null, 0l, 10l, 10l, "OK");
+        assertRow(rs, 1l, "t1234", 10l, 20l, 10l, "OK");
 
         assertFalse(rs.next());
 
@@ -122,12 +123,13 @@ public class JdbcPublicationServiceTest {
         con.close();
     }
 
-    private void assertRow(ResultSet rs, long nodeId, long starttime, long endtime, long duration, String result) throws SQLException {
+    private void assertRow(ResultSet rs, long nodeId, String seq, long starttime, long endtime, long duration, String result) throws SQLException {
         assertTrue(rs.next());
         assertEquals(nodeId, rs.getLong(1));
-        assertEquals(starttime, rs.getLong(2));
-        assertEquals(endtime, rs.getLong(3));
-        assertEquals(duration, rs.getLong(4));
-        assertEquals(result, rs.getString(5));
+        assertEquals(seq, rs.getString(2));
+        assertEquals(starttime, rs.getLong(3));
+        assertEquals(endtime, rs.getLong(4));
+        assertEquals(duration, rs.getLong(5));
+        assertEquals(result, rs.getString(6));
     }
 }

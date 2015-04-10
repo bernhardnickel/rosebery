@@ -37,7 +37,7 @@ public class CsvFileTransportServiceTest {
 
         assertTrue(Files.exists(path));
         assertEquals(1, Files.readAllLines(path).size());
-        assertEquals("nodeId;nodePurpose;0;10;OK", Files.readAllLines(path).get(0));
+        assertEquals("nodeId;nodePurpose;null;0;10;10;OK", Files.readAllLines(path).get(0));
     }
 
     @Test
@@ -68,7 +68,7 @@ public class CsvFileTransportServiceTest {
 
         assertTrue(Files.exists(path));
         assertEquals(2, Files.readAllLines(path).size());
-        assertEquals("nodeId;nodePurpose;0;10;OK", Files.readAllLines(path).get(0));
-        assertEquals("nodeId;nodePurpose;10;20;OK", Files.readAllLines(path).get(1));
+        assertEquals("nodeId;nodePurpose;null;0;10;10;OK", Files.readAllLines(path).get(0));
+        assertEquals("nodeId;nodePurpose;null;10;20;10;OK", Files.readAllLines(path).get(1));
     }
 }

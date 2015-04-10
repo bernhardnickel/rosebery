@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class RuntimePerformanceInsertionObject implements MeasurementInsertionObject<RuntimePerformance> {
-    private static final String SQL = "INSERT INTO runtime_performance(node_id, starttime, endtime, duration, result) VALUES (?,?,?,?,?)";
+    private static final String SQL = "INSERT INTO runtime_performance(node_id, seq, starttime, endtime, duration, result) VALUES (?,?,?,?,?,?)";
 
 
     private Connection connection;
@@ -28,10 +28,11 @@ public class RuntimePerformanceInsertionObject implements MeasurementInsertionOb
         try {
             pst = connection.prepareStatement(SQL);
             pst.setLong(1, nodeDao.getNodeId(runtimePerformance.getNode()));
-            pst.setLong(2, runtimePerformance.getNanoStarttime());
-            pst.setLong(3, runtimePerformance.getNanoEndtime());
-            pst.setLong(4, runtimePerformance.getDuration());
-            pst.setString(5, runtimePerformance.getExecutionResult().name());
+            pst.setString(2, runtimePerformance.getSequence());
+            pst.setLong(3, runtimePerformance.getNanoStarttime());
+            pst.setLong(4, runtimePerformance.getNanoEndtime());
+            pst.setLong(5, runtimePerformance.getDuration());
+            pst.setString(6, runtimePerformance.getExecutionResult().name());
 
             if (pst.executeUpdate() != 1) {
                 throw new SQLException("Error inserting runtime performance");

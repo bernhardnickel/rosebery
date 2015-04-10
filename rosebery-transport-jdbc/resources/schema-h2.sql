@@ -7,6 +7,7 @@ CREATE TABLE node (
 
 CREATE TABLE runtime_performance (
     node_id BIGINT,
+    seq VARCHAR(100),
     starttime BIGINT,
     endtime BIGINT,
     duration BIGINT,

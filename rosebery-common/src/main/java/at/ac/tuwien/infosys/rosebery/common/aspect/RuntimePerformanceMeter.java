@@ -2,7 +2,6 @@ package at.ac.tuwien.infosys.rosebery.common.aspect;
 
 import at.ac.tuwien.infosys.rosebery.common.factory.node.NodeFactory;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.RuntimePerformance;
-import at.ac.tuwien.infosys.rosebery.common.service.publication.PublicationService;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 /**
@@ -20,7 +19,7 @@ public class RuntimePerformanceMeter {
         rt.setNanoStarttime(System.nanoTime());
 
         try {
-            result = pjp.proceed();
+            result = proceed(pjp);
         } catch (Throwable throwable) {
             this.throwable = throwable;
         }
@@ -31,6 +30,10 @@ public class RuntimePerformanceMeter {
         rt.setNode(NodeFactory.getNodeFactory().getNode(jpo));
 
         return rt;
+    }
+
+    protected Object proceed(ProceedingJoinPoint pjp) throws Throwable {
+        return pjp.proceed();
     }
 
     public Object getResult() {

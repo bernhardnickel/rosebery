@@ -1,7 +1,11 @@
 <aspectj>
     <aspects>
+
         <concrete-aspect name="at.ac.tuwien.infosys.rosebery.spark.FunctionRuntimePerformanceAspect" extends="at.ac.tuwien.infosys.rosebery.common.aspect.AbstractRuntimePerformanceAspect">
             <pointcut name="scope" expression="execution(* org.apache.spark.api.java.function.Function.call(..))" />
         </concrete-aspect>
+        <!--
+        <aspect name="at.ac.tuwien.infosys.rosebery.spark.aspect.SparkRuntimePerformanceAspect" />
+        -->
     </aspects>
 </aspectj>
