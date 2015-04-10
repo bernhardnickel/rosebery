@@ -18,31 +18,20 @@ public abstract class AbstractRuntimePerformanceAspect {
 
     @Around("scope() && this(jpo)")
     public Object around(ProceedingJoinPoint pjp, Object jpo) throws Throwable {
-        Object o = null;
-        Throwable t = null;
+        RuntimePerformanceMeter meter = new RuntimePerformanceMeter();
 
-        RuntimePerformance rt = new RuntimePerformance();
-
-        rt.setNanoStarttime(System.nanoTime());
-
-        try {
-            o = pjp.proceed();
-        } catch (Throwable throwable) {
-            t = throwable;
-        }
-
-        rt.setNanoEndtime(System.nanoTime());
-        rt.setExecutionResult(t == null ? RuntimePerformance.ExecutionResult.OK : RuntimePerformance.ExecutionResult.EXCEPTION);
-
-        rt.setNode(NodeFactory.getNodeFactory().getNode(jpo));
+        RuntimePerformance rt = meter.meter(pjp, jpo, null);
 
         PublicationService.getPublicationService().publish(rt);
 
-
-        if (t != null) {
-            throw t;
+        if(meter.getResult() != null) {
+            return meter.getResult();
         }
 
-        return o;
+        if (meter.getThrowable() != null) {
+            throw meter.getThrowable();
+        }
+
+        return null;
     }
 }

@@ -6,7 +6,7 @@ import org.apache.spark.streaming.receiver.Receiver;
 /**
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
-public class TestReceiver  extends Receiver<String> {
+public class TestReceiver extends Receiver<String> {
 
     public TestReceiver() {
         super(StorageLevel.MEMORY_ONLY_SER());
