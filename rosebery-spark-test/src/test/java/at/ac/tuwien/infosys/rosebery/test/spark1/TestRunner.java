@@ -23,7 +23,14 @@ public class TestRunner {
         //Set system properties in code for test
         System.setProperty("rosebery.nodeFactory", "at.ac.tuwien.infosys.rosebery.common.factory.node.PropertyFileNodeFactory");
         System.setProperty("rosebery.nodeFactoryFile", "src/test/resources/at/ac/tuwien/infosys/rosebery/test/spark1/nodes.properties");
-        System.setProperty("rosebery.publicationService", "CLASSPATH");
+
+        //
+        // TODO -> Classpath scan takes forever, remove that option
+        // ADD config file option!!
+        // and make publication async
+        // or start scanning at start
+        //
+        //System.setProperty("rosebery.publicationService", "CLASSPATH");
 
         startSparkStreaming();
     }

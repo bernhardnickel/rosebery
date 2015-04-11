@@ -4,4 +4,9 @@
             <pointcut name="scope" expression="execution(* org.apache.spark.api.java.function.Function.call(..))" />
         </concrete-aspect>
     </aspects>
+    <weaver options="-verbose">
+        <exclude within="scala..*" />
+        <exclude within="org.spark-project..*" />
+        <exclude within="org.apache.spark..*" />
+    </weaver>
 </aspectj>

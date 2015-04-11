@@ -12,5 +12,10 @@
 
         <aspect name="at.ac.tuwien.infosys.rosebery.storm.aspect.BoltRuntimePerformanceAspect" />
         <aspect name="at.ac.tuwien.infosys.rosebery.storm.aspect.SequencedTupleAspect" />
+
+        <weaver options="-verbose">
+            <exclude within="scala..*" />
+            <!-- TBD -->
+        </weaver>
     </aspects>
 </aspectj>
