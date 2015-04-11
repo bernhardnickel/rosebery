@@ -4,6 +4,4 @@ dependencies {
     compile project(':rosebery-common')
     compile project(':rosebery-spark')
     compile project(':rosebery-transport-jmx')
-
-    compile 'org.apache.spark:spark-streaming_2.10:1.0.2'
 }

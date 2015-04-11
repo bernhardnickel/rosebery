@@ -9,6 +9,7 @@ repositories() {
 
 dependencies {
     compile project(':rosebery-common')
+    compile project(':rosebery-scenario')
     compile 'org.apache.storm:storm-core:0.9.4'
     compile "storm:carbonite:1.4.0"
 }

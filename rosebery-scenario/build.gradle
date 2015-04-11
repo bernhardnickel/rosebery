@@ -1,0 +1,4 @@
+description = 'Scenario classes for rosebery'
+
+dependencies {
+}

@@ -38,7 +38,7 @@ public class TestTopology {
 
     protected static StormTopology createTestTopology() {
         TopologyBuilder builder = new TopologyBuilder();
-        builder.setSpout("test-spout", new TestSpout());
+        builder.setSpout("test-spout", new RoseberyTestSpout());
         builder.setBolt("test-boltA", new TestBoltA()).shuffleGrouping("test-spout");
         builder.setBolt("test-boltB", new TestBoltB()).shuffleGrouping("test-boltA");
 

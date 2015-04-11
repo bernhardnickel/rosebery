@@ -1,11 +1,11 @@
 package at.ac.tuwien.infosys.rosebery.test.spark1;
 
 import org.apache.spark.SparkConf;
+import org.apache.spark.storage.StorageLevel;
 import org.apache.spark.streaming.Duration;
 import org.apache.spark.streaming.api.java.JavaDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
-
-import java.io.File;
+import org.apache.spark.streaming.receiver.Receiver;
 
 /**
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
@@ -37,7 +37,9 @@ public class TestRunner {
 
         JavaStreamingContext ssc = new JavaStreamingContext(conf, new Duration(1000));
 
-        JavaDStream<String> testStream = ssc.receiverStream(new TestReceiver());
+        Receiver<String> receiver = new RosberyTestReceiver(StorageLevel.MEMORY_ONLY_SER());
+
+        JavaDStream<String> testStream = ssc.receiverStream(receiver);
 
         testStream.map(new TestFunctionA()).map(new TestFunctionB()).foreach(new PrintFunction());
 
