@@ -15,7 +15,6 @@ import org.apache.spark.streaming.receiver.Receiver;
  * -javaagent:/opt/aspectj/lib/aspectjweaver.jar
  * -Drosebery.nodeFactory=at.ac.tuwien.infosys.rosebery.common.factory.node.PropertyFileNodeFactory
  * -Drosebery.nodeFactoryFile=src/test/resources/at/ac/tuwien/infosys/rosebery/test/spark1/nodes.properties
- * -Drosebery.publicationService=CLASSPATH
  *
  */
 public class TestRunner {
@@ -24,13 +23,6 @@ public class TestRunner {
         System.setProperty("rosebery.nodeFactory", "at.ac.tuwien.infosys.rosebery.common.factory.node.PropertyFileNodeFactory");
         System.setProperty("rosebery.nodeFactoryFile", "src/test/resources/at/ac/tuwien/infosys/rosebery/test/spark1/nodes.properties");
 
-        //
-        // TODO -> Classpath scan takes forever, remove that option
-        // ADD config file option!!
-        // and make publication async
-        // or start scanning at start
-        //
-        //System.setProperty("rosebery.publicationService", "CLASSPATH");
 
         startSparkStreaming();
     }

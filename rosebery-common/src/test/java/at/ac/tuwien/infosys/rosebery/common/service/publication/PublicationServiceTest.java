@@ -24,14 +24,4 @@ public class PublicationServiceTest {
         assertTrue(publicationService instanceof DefaultPublicationService);
     }
 
-    @Test
-    public void testInitialisation2() {
-        System.setProperty("rosebery.publicationService", "ALL");
-
-        PublicationService publicationService = PublicationService.getPublicationService();
-
-
-        assertNotNull(publicationService);
-        assertEquals(ClassPathScanPublicationService.class, publicationService.getClass());
-    }
 }

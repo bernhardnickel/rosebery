@@ -25,8 +25,14 @@ public class DefaultPublicationService implements PublicationService {
 
                 if (serviceClass == null) {
                     instance = new DefaultPublicationService();
-                } else if ("CLASSPATH".equals(serviceClass)) {
-                    instance = new ClassPathScanPublicationService();
+                } else if (serviceClass.contains(":")) {
+                    MultiInstancePublicationService mInstance = new MultiInstancePublicationService();
+
+                    for (String iServiceClass : serviceClass.split(":")) {
+                        mInstance.addPublicationService(newInstance(iServiceClass));
+                    }
+
+                    instance = mInstance;
                 } else {
                     instance = newInstance(serviceClass);
                 }
