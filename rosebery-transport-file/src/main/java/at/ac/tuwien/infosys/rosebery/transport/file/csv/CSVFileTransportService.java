@@ -2,7 +2,9 @@ package at.ac.tuwien.infosys.rosebery.transport.file.csv;
 
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.Measurement;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.RuntimePerformance;
+import at.ac.tuwien.infosys.rosebery.common.model.measurement.profiling.ExecutionProfile;
 import at.ac.tuwien.infosys.rosebery.transport.file.AbstractFileTransportService;
+import at.ac.tuwien.infosys.rosebery.transport.file.csv.serializer.ExecutionProfileSerializer;
 import at.ac.tuwien.infosys.rosebery.transport.file.csv.serializer.RuntimePerformanceCsvSerializer;
 import at.ac.tuwien.infosys.rosebery.transport.file.Serializer;
 
@@ -27,6 +29,7 @@ public class CsvFileTransportService extends AbstractFileTransportService {
         path = System.getProperty(DIR_SYSTEM_PROPERTY);
 
         map.put(RuntimePerformance.class, new RuntimePerformanceCsvSerializer());
+        map.put(ExecutionProfile.class, new ExecutionProfileSerializer());
     }
 
     @Override

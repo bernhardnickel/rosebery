@@ -72,9 +72,7 @@ public class RoseberySpout<T> extends BaseRichSpout implements ISpout {
     public void nextTuple() {
         try {
             collector.emit(new Values(queue.take()));
-        } catch (InterruptedException e) {
-            //
-        }
+        } catch (InterruptedException e) {}
     }
 
     private void startScenario() {
