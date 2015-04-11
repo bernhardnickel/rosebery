@@ -5,6 +5,7 @@ import at.ac.tuwien.infosys.rosebery.transport.jdbc.dao.NodeDataAccessObject;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -23,7 +24,7 @@ public class RuntimePerformanceInsertionObject implements MeasurementInsertionOb
     }
 
     @Override
-    public void insert(RuntimePerformance runtimePerformance) {
+    public Long insert(RuntimePerformance runtimePerformance) {
         PreparedStatement pst = null;
         try {
             pst = connection.prepareStatement(SQL);
@@ -36,6 +37,16 @@ public class RuntimePerformanceInsertionObject implements MeasurementInsertionOb
 
             if (pst.executeUpdate() != 1) {
                 throw new SQLException("Error inserting runtime performance");
+            }
+            ResultSet rs = pst.getGeneratedKeys();
+
+            try {
+                if (!rs.next()) {
+                    throw new SQLException("No key generated");
+                }
+                return rs.getLong(1);
+            } finally {
+                 rs.close();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

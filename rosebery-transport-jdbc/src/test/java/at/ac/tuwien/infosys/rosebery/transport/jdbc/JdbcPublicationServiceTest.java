@@ -2,6 +2,8 @@ package at.ac.tuwien.infosys.rosebery.transport.jdbc;
 
 import at.ac.tuwien.infosys.rosebery.common.model.Node;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.RuntimePerformance;
+import at.ac.tuwien.infosys.rosebery.common.model.measurement.profiling.ExecutionProfile;
+import at.ac.tuwien.infosys.rosebery.common.model.measurement.profiling.ResourceSnapshot;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -12,6 +14,7 @@ import java.io.FileReader;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 import static org.junit.Assert.*;
 
@@ -55,6 +58,8 @@ public class JdbcPublicationServiceTest {
         }
 
         con.close();
+
+        System.setProperty("rosbery.jdbcConfiguration", "src/test/resources/jdbc.properties");
     }
 
     @AfterClass
@@ -70,29 +75,33 @@ public class JdbcPublicationServiceTest {
 
     }
 
-
     @Test
     public void test() throws Exception {
-        System.setProperty("rosbery.jdbcConfiguration", "src/test/resources/jdbc.properties");
-
         JdbcPublicationService service = new JdbcPublicationService();
 
-        RuntimePerformance rt = new RuntimePerformance();
-        rt.setNode(new Node());
-        rt.getNode().setNodeId("nodeId");
-        rt.getNode().setNodePurpose("nodePurpose");
+        ExecutionProfile ep = new ExecutionProfile();
+        ep.setNode(new Node());
+        ep.getNode().setNodeId("nodeId");
+        ep.getNode().setNodePurpose("nodePurpose");
 
-        rt.setNanoStarttime(0l);
-        rt.setNanoEndtime(10l);
-        rt.setExecutionResult(RuntimePerformance.ExecutionResult.OK);
+        ep.setNanoStarttime(0l);
+        ep.setNanoEndtime(10l);
+        ep.setExecutionResult(RuntimePerformance.ExecutionResult.OK);
 
-        service.publish(rt);
+        ep.setSnapshots(new TreeSet<>());
 
-        rt.setSequence("t1234");
-        rt.setNanoStarttime(10l);
-        rt.setNanoEndtime(20l);
+        ResourceSnapshot snapshot = new ResourceSnapshot();
+        snapshot.setNanoTime(0l);
+        snapshot.setSystemCpuLoad(1d);
+        snapshot.setProcessCpuLoad(0.5d);
+        snapshot.setProcessCpuTime(2l);
+        snapshot.setThreadCpuTime(1l);
+        snapshot.setHeapUsage(5l);
+        snapshot.setHeapMax(5l);
 
-        service.publish(rt);
+        ep.getSnapshots().add(snapshot);
+
+        service.publish(ep);
 
         Connection con = DriverManager.getConnection(URL);
 
@@ -108,28 +117,56 @@ public class JdbcPublicationServiceTest {
         assertFalse(rs.next());
 
         rs.close();
-
         pst.close();
+
         pst = con.prepareStatement("SELECT * FROM runtime_performance");
         rs = pst.executeQuery();
 
-        assertRow(rs, 1l, null, 0l, 10l, 10l, "OK");
-        assertRow(rs, 1l, "t1234", 10l, 20l, 10l, "OK");
+        assertRow(rs, 1l, 1l, null, 0l, 10l, 10l, "OK");
 
         assertFalse(rs.next());
-
         rs.close();
+        pst.close();
+
+        pst = con.prepareStatement("SELECT * FROM execution_profile");
+        rs = pst.executeQuery();
+
+        assertTrue(rs.next());
+        assertEquals(1l, rs.getLong(1));
+
+        assertFalse(rs.next());
+        rs.close();
+        pst.close();
+
+        pst = con.prepareStatement("SELECT * FROM resource_snapshot");
+        rs = pst.executeQuery();
+
+        assertTrue(rs.next());
+        assertEquals(1l, rs.getLong(1));
+        assertEquals(0l, rs.getLong(2));
+        assertEquals(new Double(1d), new Double(rs.getDouble(3)));
+        assertEquals(new Double(0.5d), new Double(rs.getDouble(4)));
+        assertEquals(2l, rs.getLong(5));
+        assertEquals(1l, rs.getLong(6));
+        assertEquals(5l, rs.getLong(7));
+        assertEquals(5l, rs.getLong(8));
+
+
+        assertFalse(rs.next());
+        rs.close();
+        pst.close();
 
         con.close();
     }
 
-    private void assertRow(ResultSet rs, long nodeId, String seq, long starttime, long endtime, long duration, String result) throws SQLException {
+    private void assertRow(ResultSet rs,long id, long nodeId, String seq, long starttime, long endtime, long duration, String result) throws SQLException {
         assertTrue(rs.next());
-        assertEquals(nodeId, rs.getLong(1));
-        assertEquals(seq, rs.getString(2));
-        assertEquals(starttime, rs.getLong(3));
-        assertEquals(endtime, rs.getLong(4));
-        assertEquals(duration, rs.getLong(5));
-        assertEquals(result, rs.getString(6));
+        assertEquals(id, rs.getLong(1));
+        assertEquals(nodeId, rs.getLong(2));
+        assertEquals(seq, rs.getString(3));
+        assertEquals(starttime, rs.getLong(4));
+        assertEquals(endtime, rs.getLong(5));
+        assertEquals(duration, rs.getLong(6));
+        assertEquals(result, rs.getString(7));
     }
 }

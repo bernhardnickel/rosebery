@@ -43,8 +43,7 @@ public class NodeDataAccessObject {
         Long id = selectId(node);
 
         if (id == null) {
-            insert(node);
-            id = selectId(node);
+            id = insert(node);
         }
 
         idCache.put(node, id);
@@ -71,7 +70,7 @@ public class NodeDataAccessObject {
         return result;
     }
 
-    private void insert(Node node)  throws SQLException {
+    private Long insert(Node node)  throws SQLException {
         PreparedStatement pst = connection.prepareStatement(INSERT);
 
         pst.setString(1, node.getNodeId());
@@ -80,6 +79,17 @@ public class NodeDataAccessObject {
         try {
             if (pst.executeUpdate() != 1) {
                 throw new SQLException("Error inserting node");
+            }
+
+            ResultSet rs = pst.getGeneratedKeys();
+
+            try {
+                if (!rs.next()) {
+                    throw new SQLException("No key generated");
+                }
+                return rs.getLong(1);
+            } finally {
+                rs.close();
             }
         } finally {
             pst.close();

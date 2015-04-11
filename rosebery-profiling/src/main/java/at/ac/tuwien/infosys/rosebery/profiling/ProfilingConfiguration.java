@@ -10,6 +10,8 @@ import java.util.Properties;
 public class ProfilingConfiguration {
     private static final String PROFILING_CONFIG_SYSTEM_PROPERTY = "rosebery.profilingConfig";
 
+    private static final String INTERVAL_PROPERTY_POSTFIX = ".profilingInterval";
+
     private static ProfilingConfiguration instance;
 
     private Properties properties = new Properties();
@@ -34,6 +36,6 @@ public class ProfilingConfiguration {
     }
 
     public long getInterval(Object jpo) {
-        return Long.valueOf(properties.getProperty(jpo.getClass().getName() + ".profilingInterval"));
+        return Long.valueOf(properties.getProperty(jpo.getClass().getName() + INTERVAL_PROPERTY_POSTFIX));
     }
 }

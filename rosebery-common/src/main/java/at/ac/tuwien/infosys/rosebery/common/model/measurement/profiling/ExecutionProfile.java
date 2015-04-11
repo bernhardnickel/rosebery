@@ -19,4 +19,9 @@ public class ExecutionProfile extends RuntimePerformance {
     public void setSnapshots(Set<ResourceSnapshot> snapshots) {
         this.snapshots = snapshots;
     }
+
+    @Override
+    public String toString() {
+        return super.toString().replace("RuntimePerformance", "ExecutionProfile");
+    }
 }
