@@ -16,7 +16,7 @@ public class RosberyTestReceiver extends RoseberyReceiver<String> {
         setFactory(new Factory<String>() {
             @Override
             public String create() {
-                return "test-" + System.currentTimeMillis();
+                return "rosberyTest-" + System.currentTimeMillis();
             }
         });
 

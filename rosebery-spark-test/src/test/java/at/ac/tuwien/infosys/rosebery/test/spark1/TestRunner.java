@@ -30,7 +30,8 @@ public class TestRunner {
 
     private static void startSparkStreaming() throws Exception {
         SparkConf conf = new SparkConf();
-        conf.setMaster("local[1]");
+        //Should be set > 1 if there is a receiver. Why? No idea! :D
+        conf.setMaster("local[2]");
         conf.set("spark.streaming.concurrentJobs", "3");
 
         conf.setAppName("sparkTestApplication");
