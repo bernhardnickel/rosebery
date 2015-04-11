@@ -16,8 +16,6 @@ public class ResourceSnapshot implements Measurement, Comparable<ResourceSnapsho
 
     private long heapMax;
     private long heapUsage;
-    private long nonHeapMax;
-    private long nonHeapUsage;
 
     public long getNanoTime() {
         return nanoTime;
@@ -75,24 +73,13 @@ public class ResourceSnapshot implements Measurement, Comparable<ResourceSnapsho
         this.heapUsage = heapUsage;
     }
 
-    public long getNonHeapMax() {
-        return nonHeapMax;
-    }
-
-    public void setNonHeapMax(long nonHeapMax) {
-        this.nonHeapMax = nonHeapMax;
-    }
-
-    public long getNonHeapUsage() {
-        return nonHeapUsage;
-    }
-
-    public void setNonHeapUsage(long nonHeapUsage) {
-        this.nonHeapUsage = nonHeapUsage;
-    }
-
     @Override
     public int compareTo(ResourceSnapshot o) {
         return Long.compare(nanoTime, o.nanoTime);
+    }
+
+    @Override
+    public String toString() {
+        return "ResourceSnapshot[" + nanoTime + "," + systemCpuLoad + "," + processCpuLoad + "," + processCpuTime + "," + threadCpuTime + "," + heapMax + "," + heapUsage + "]";
     }
 }

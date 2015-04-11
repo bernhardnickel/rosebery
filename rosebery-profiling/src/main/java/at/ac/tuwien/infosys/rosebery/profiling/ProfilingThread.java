@@ -39,8 +39,6 @@ public class ProfilingThread extends Thread implements Runnable {
                 rs.setProcessCpuLoad(osMXBean.getProcessCpuLoad());
                 rs.setHeapMax(memoryMXBean.getHeapMemoryUsage().getMax());
                 rs.setHeapUsage(memoryMXBean.getHeapMemoryUsage().getUsed());
-                rs.setNonHeapMax(memoryMXBean.getNonHeapMemoryUsage().getMax());
-                rs.setNonHeapUsage(memoryMXBean.getNonHeapMemoryUsage().getUsed());
 
                 rs.setNanoTime(System.nanoTime());
                 snapshots.add(rs);
@@ -49,12 +47,13 @@ public class ProfilingThread extends Thread implements Runnable {
 
             lastProcessCPUTime = osMXBean.getProcessCpuTime();
             lastThreadCPUTime = threadMXBean.getThreadCpuTime(threadId);
+
+            try {
+                Thread.sleep(interval);
+            } catch (InterruptedException e) {
+            }
         }
-        try {
-            Thread.sleep(interval);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
     public void setInterval(long interval) {

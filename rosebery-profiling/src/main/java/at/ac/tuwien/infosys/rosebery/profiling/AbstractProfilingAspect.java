@@ -5,6 +5,7 @@ import at.ac.tuwien.infosys.rosebery.common.model.measurement.profiling.Executio
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.profiling.ResourceSnapshot;
 import at.ac.tuwien.infosys.rosebery.common.service.publication.PublicationService;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
@@ -20,6 +21,7 @@ public abstract class AbstractProfilingAspect {
     public abstract void scope();
 
 
+    @Around("scope() && this(jpo)")
     public Object around(ProceedingJoinPoint pjp, Object jpo) throws Throwable {
         ProfilingThread profilingThread = startProfiling(Thread.currentThread().getId(), 10l);
 
