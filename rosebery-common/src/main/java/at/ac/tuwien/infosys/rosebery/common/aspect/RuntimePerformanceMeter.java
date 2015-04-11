@@ -9,14 +9,27 @@ import org.aspectj.lang.ProceedingJoinPoint;
  */
 public class RuntimePerformanceMeter {
 
+    private RuntimePerformance runtimePerformance;
     private Object result;
     private Throwable throwable;
 
-    public RuntimePerformance meter(ProceedingJoinPoint pjp, Object jpo, String sequence) {
-        RuntimePerformance rt = new RuntimePerformance();
+    public RuntimePerformanceMeter() {
+    }
 
-        rt.setSequence(sequence);
-        rt.setNanoStarttime(System.nanoTime());
+    public RuntimePerformanceMeter(RuntimePerformance runtimePerformance) {
+        this.runtimePerformance = runtimePerformance;
+    }
+
+    public void meter(ProceedingJoinPoint pjp, Object jpo) {
+        meter(pjp, jpo, null);
+    }
+
+    public void meter(ProceedingJoinPoint pjp, Object jpo, String sequence) {
+        if (runtimePerformance == null) {
+            runtimePerformance = new RuntimePerformance();
+        }
+
+        runtimePerformance.setNanoStarttime(System.nanoTime());
 
         try {
             result = proceed(pjp);
@@ -24,12 +37,10 @@ public class RuntimePerformanceMeter {
             this.throwable = throwable;
         }
 
-        rt.setNanoEndtime(System.nanoTime());
-        rt.setExecutionResult(throwable == null ? RuntimePerformance.ExecutionResult.OK : RuntimePerformance.ExecutionResult.EXCEPTION);
+        runtimePerformance.setNanoEndtime(System.nanoTime());
+        runtimePerformance.setExecutionResult(throwable == null ? RuntimePerformance.ExecutionResult.OK : RuntimePerformance.ExecutionResult.EXCEPTION);
 
-        rt.setNode(NodeFactory.getNodeFactory().getNode(jpo));
-
-        return rt;
+        runtimePerformance.setNode(NodeFactory.getNodeFactory().getNode(jpo));
     }
 
     protected Object proceed(ProceedingJoinPoint pjp) throws Throwable {
@@ -42,5 +53,9 @@ public class RuntimePerformanceMeter {
 
     public Throwable getThrowable() {
         return throwable;
+    }
+
+    public RuntimePerformance getRuntimePerformance() {
+        return runtimePerformance;
     }
 }

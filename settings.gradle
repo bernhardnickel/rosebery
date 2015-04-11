@@ -1,1 +1,1 @@
-include 'rosebery-common', 'rosebery-transport-file', 'rosebery-transport-jdbc','rosebery-transport-jmx', 'rosebery-storm', 'rosebery-spark', 'rosebery-spark-test','rosebery-storm-test'
+include 'rosebery-common', 'rosebery-profiling', 'rosebery-transport-file', 'rosebery-transport-jdbc','rosebery-transport-jmx', 'rosebery-storm', 'rosebery-spark', 'rosebery-spark-test','rosebery-storm-test'

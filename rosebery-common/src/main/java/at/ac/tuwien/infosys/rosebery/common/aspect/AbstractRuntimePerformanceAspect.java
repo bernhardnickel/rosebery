@@ -18,20 +18,22 @@ public abstract class AbstractRuntimePerformanceAspect {
 
     @Around("scope() && this(jpo)")
     public Object around(ProceedingJoinPoint pjp, Object jpo) throws Throwable {
-        RuntimePerformanceMeter meter = new RuntimePerformanceMeter();
+        RuntimePerformanceMeter meter = getMeter();
 
-        RuntimePerformance rt = meter.meter(pjp, jpo, null);
+        meter.meter(pjp, jpo);
+
+        RuntimePerformance rt = meter.getRuntimePerformance();
 
         PublicationService.getPublicationService().publish(rt);
-
-        if(meter.getResult() != null) {
-            return meter.getResult();
-        }
 
         if (meter.getThrowable() != null) {
             throw meter.getThrowable();
         }
 
-        return null;
+        return meter.getResult();
+    }
+
+    protected RuntimePerformanceMeter getMeter() {
+        return new RuntimePerformanceMeter();
     }
 }

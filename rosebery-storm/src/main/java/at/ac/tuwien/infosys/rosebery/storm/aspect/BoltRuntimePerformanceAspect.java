@@ -28,18 +28,17 @@ public class BoltRuntimePerformanceAspect {
             sequence = ((SequencedTupleAspect.SequencedTuple)tuple).getSequence();
         }
 
-        RuntimePerformance rt = meter.meter(pjp, bolt, sequence);
+        meter.meter(pjp, bolt, sequence);
+
+        RuntimePerformance rt = meter.getRuntimePerformance();
 
         PublicationService.getPublicationService().publish(rt);
 
-        if(meter.getResult() != null) {
-            return meter.getResult();
-        }
 
         if (meter.getThrowable() != null) {
             throw meter.getThrowable();
         }
 
-        return null;
+        return meter.getResult();
     }
 }

@@ -50,7 +50,8 @@ public class SparkRuntimePerformanceAspect {
             sequence = ((SequencedObject)pjp.getArgs()[0]).getSequence();
         }
 
-        RuntimePerformance rt = meter.meter(pjp, jpo, sequence);
+        meter.meter(pjp, jpo, sequence);
+        RuntimePerformance rt = meter.getRuntimePerformance();
 
         PublicationService.getPublicationService().publish(rt);
 
