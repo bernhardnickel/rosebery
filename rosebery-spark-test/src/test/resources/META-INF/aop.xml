@@ -1,11 +1,13 @@
 <aspectj>
     <aspects>
-        <concrete-aspect name="at.ac.tuwien.infosys.rosebery.spark.FunctionRuntimePerformanceAspect" extends="at.ac.tuwien.infosys.rosebery.common.aspect.AbstractRuntimePerformanceAspect">
-            <pointcut name="scope" expression="execution(* org.apache.spark.api.java.function.Function.call(..))" />
-        </concrete-aspect>
+        <aspect name="at.ac.tuwien.infosys.rosebery.spark.aspect.FunctionSequencedRuntimePerformanceAspect"  />
+        <aspect name="at.ac.tuwien.infosys.rosebery.spark.aspect.ReceiverCreateSequenceAspect"  />
+        <aspect name="at.ac.tuwien.infosys.rosebery.spark.aspect.FunctionSequencePassOnAspect"  />
+        <aspect name="at.ac.tuwien.infosys.rosebery.test.spark1.aspect.SequencedTestObject"  />
     </aspects>
     <weaver options="-verbose">
         <exclude within="scala..*" />
+        <exclude within="org.groovy..*" />
         <exclude within="org.spark-project..*" />
         <exclude within="org.apache.spark..*" />
     </weaver>

@@ -30,6 +30,7 @@ public class RuntimePerformanceMeter {
         }
 
         runtimePerformance.setNanoStarttime(System.nanoTime());
+        runtimePerformance.setSequence(sequence);
 
         try {
             result = proceed(pjp);

@@ -1,5 +1,8 @@
 package at.ac.tuwien.infosys.rosebery.test.spark1;
 
+import at.ac.tuwien.infosys.rosebery.scenario.Factory;
+import at.ac.tuwien.infosys.rosebery.scenario.dsl.ScenarioDsl;
+import at.ac.tuwien.infosys.rosebery.spark.receiver.RoseberyReceiver;
 import org.apache.spark.SparkConf;
 import org.apache.spark.storage.StorageLevel;
 import org.apache.spark.streaming.Duration;
@@ -37,9 +40,18 @@ public class TestRunner {
 
         JavaStreamingContext ssc = new JavaStreamingContext(conf, new Duration(1000));
 
-        Receiver<String> receiver = new RosberyTestReceiver(StorageLevel.MEMORY_ONLY_SER());
+        Receiver<TestObject> receiver = new RoseberyReceiver<TestObject>(StorageLevel.MEMORY_ONLY_SER(),
+                new Factory<TestObject>() {
+                    @Override
+                    public TestObject create() {
+                        return new TestObject("rosberyTest-" + System.currentTimeMillis());
+                    }
+                },
+                ScenarioDsl.evaluate("loop(10, 100)")
+        );
 
-        JavaDStream<String> testStream = ssc.receiverStream(receiver);
+
+        JavaDStream<TestObject> testStream = ssc.receiverStream(receiver);
 
         testStream.map(new TestFunctionA()).map(new TestFunctionB()).foreach(new PrintFunction());
 

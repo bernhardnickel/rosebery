@@ -1,4 +1,5 @@
 description = 'Scenario classes for rosebery'
 
 dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.3'
 }

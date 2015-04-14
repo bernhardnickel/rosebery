@@ -1,21 +1,13 @@
 <aspectj>
     <aspects>
-        <!--
-        <concrete-aspect name="at.ac.tuwien.infosys.rosebery.storm.BasicBoltRuntimePerformanceAspect" extends="at.ac.tuwien.infosys.rosebery.common.aspect.AbstractRuntimePerformanceAspect">
-            <pointcut name="scope" expression="execution(* backtype.storm.topology.base.BaseBasicBolt.execute(..))" />
-        </concrete-aspect>
-        <concrete-aspect name="at.ac.tuwien.infosys.rosebery.storm.BasicSpoutRuntimePerformanceAspect" extends="at.ac.tuwien.infosys.rosebery.common.aspect.AbstractRuntimePerformanceAspect">
-            <pointcut name="scope" expression="execution(* backtype.storm.topology.base.BaseRichSpout.nextTuple(..))" />
-        </concrete-aspect>
 
-        -->
-
-        <aspect name="at.ac.tuwien.infosys.rosebery.storm.aspect.BoltRuntimePerformanceAspect" />
         <aspect name="at.ac.tuwien.infosys.rosebery.storm.aspect.SequencedTupleAspect" />
+        <aspect name="at.ac.tuwien.infosys.rosebery.storm.aspect.BoltSequencedRuntimePerformanceAspect" />
+        <aspect name="at.ac.tuwien.infosys.rosebery.storm.aspect.SpoutCreateSequenceAspect" />
+        <aspect name="at.ac.tuwien.infosys.rosebery.storm.aspect.BoltSequencePassOnAspect" />
 
         <weaver options="-verbose">
-            <exclude within="scala..*" />
-            <!-- TBD -->
+            <exclude within="backtype.storm.metric.api..*" />
         </weaver>
     </aspects>
 </aspectj>

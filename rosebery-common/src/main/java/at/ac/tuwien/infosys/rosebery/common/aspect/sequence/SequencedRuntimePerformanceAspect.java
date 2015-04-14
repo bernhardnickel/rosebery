@@ -1,34 +1,33 @@
-package at.ac.tuwien.infosys.rosebery.storm.aspect;
+package at.ac.tuwien.infosys.rosebery.common.aspect.sequence;
 
 import at.ac.tuwien.infosys.rosebery.common.aspect.RuntimePerformanceMeter;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.RuntimePerformance;
 import at.ac.tuwien.infosys.rosebery.common.service.publication.PublicationService;
-import backtype.storm.topology.IBasicBolt;
-import backtype.storm.tuple.Tuple;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 
 /**
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 @Aspect
-public class BoltRuntimePerformanceAspect {
+public abstract class SequencedRuntimePerformanceAspect {
 
-    @Pointcut("execution(* backtype.storm.topology.IBasicBolt.execute(backtype.storm.tuple.Tuple, ..)) && this(bolt) && args(tuple, *)")
-    public void boltExecute(IBasicBolt bolt, Tuple tuple) {}
+    @Pointcut
+    public abstract void scope(Object o);
 
-    @Around("boltExecute(bolt, tuple)")
-    public Object aroundBoltExecute(ProceedingJoinPoint pjp, IBasicBolt bolt, Tuple tuple) throws Throwable {
-
+    @Around("scope(o) && this(jpo)")
+    public Object around(ProceedingJoinPoint pjp, Object jpo, Object o) throws Throwable {
         RuntimePerformanceMeter meter = new RuntimePerformanceMeter();
 
         String sequence = null;
 
-        if (tuple instanceof SequencedTupleAspect.SequencedTuple) {
-            sequence = ((SequencedTupleAspect.SequencedTuple)tuple).getSequence();
+        if (o instanceof SequencedObject) {
+            sequence = ((SequencedObject)o).getSequence();
         }
 
-        meter.meter(pjp, bolt, sequence);
+        meter.meter(pjp, jpo, sequence);
 
         RuntimePerformance rt = meter.getRuntimePerformance();
 

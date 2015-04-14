@@ -5,10 +5,10 @@ import org.apache.spark.api.java.function.Function;
 /**
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
-public class TestFunctionA implements Function<String, String> {
+public class TestFunctionA implements Function<TestObject, TestObject> {
     @Override
-    public String call(String v1) throws Exception {
+    public TestObject call(TestObject v1) throws Exception {
         System.out.println("SparkTest1-TestFunctionA:" + v1);
-        return v1 + "-tfA";
+        return new TestObject(v1 + "-tfA");
     }
 }

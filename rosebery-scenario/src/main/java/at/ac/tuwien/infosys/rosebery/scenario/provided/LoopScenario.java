@@ -12,6 +12,17 @@ public class LoopScenario<T> implements Scenario<T> {
     private long loopCount;
     private Long sleepTime = null;
 
+    public LoopScenario(long loopCount, Long sleepTime) {
+        this.loopCount = loopCount;
+        this.sleepTime = sleepTime;
+        this.scenario = new RunOnceScenario<>();
+    }
+
+    public LoopScenario(long loopCount) {
+        this.loopCount = loopCount;
+        this.scenario = new RunOnceScenario<>();
+    }
+
     public LoopScenario(Scenario<T> scenario, long loopCount) {
         this.loopCount = loopCount;
         this.scenario = scenario;

@@ -1,5 +1,6 @@
 allprojects {
-	apply plugin: 'java'	
+	apply plugin: 'java'
+	apply plugin: 'idea'
 	
 	group = 'at.ac.tuwien.infosys.rosebery'
 	
@@ -9,5 +10,12 @@ allprojects {
 
 	dependencies {
 		testCompile 'junit:junit:4.12'
+	}
+
+	idea {
+		module {
+			downloadJavadoc = true
+			downloadSources = true
+		}
 	}
 }
