@@ -16,6 +16,12 @@ public class TestBoltA extends BaseBasicBolt {
         String val = input.getString(0);
         System.out.println("StormTest1-BoltA:" + val);
 
+        try {
+            Thread.sleep(1000l);
+        } catch (InterruptedException e) {
+
+        }
+
 
         collector.emit(new Values(val + "tbA"));
     }

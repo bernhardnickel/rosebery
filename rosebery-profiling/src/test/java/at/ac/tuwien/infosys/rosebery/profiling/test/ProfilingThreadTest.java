@@ -1,6 +1,6 @@
 package at.ac.tuwien.infosys.rosebery.profiling.test;
 
-import at.ac.tuwien.infosys.rosebery.profiling.ProfilingThread;
+import at.ac.tuwien.infosys.rosebery.profiling.ProfilingRunnable;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -13,11 +13,11 @@ public class ProfilingThreadTest {
 
     @Test
     public void test() throws Exception {
-        ProfilingThread thread = new ProfilingThread();
-        thread.setInterval(100l);
-        thread.setThreadId(Thread.currentThread().getId());
+        ProfilingRunnable runnable = new ProfilingRunnable();
+        runnable.setInterval(100l);
+        runnable.setThreadId(Thread.currentThread().getId());
 
-        thread.start();
+        new Thread(runnable).start();
 
 
         List<Object> l = new ArrayList<>();
@@ -29,9 +29,9 @@ public class ProfilingThreadTest {
 
         Thread.sleep(1000);
 
-        thread.interrupt();
+        runnable.interrupt();
 
 
-        System.out.println(thread.getResult());
+        System.out.println(runnable.getResult());
     }
 }

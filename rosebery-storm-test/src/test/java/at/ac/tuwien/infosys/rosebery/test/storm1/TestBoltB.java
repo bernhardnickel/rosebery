@@ -13,6 +13,13 @@ public class TestBoltB extends BaseBasicBolt {
     @Override
     public void execute(Tuple input, BasicOutputCollector collector) {
         String val = input.getString(0);
+
+        try {
+            Thread.sleep(1000l);
+        } catch (InterruptedException e) {
+
+        }
+
         System.out.println("StormTest1-BoltB:" + val);
     }
 

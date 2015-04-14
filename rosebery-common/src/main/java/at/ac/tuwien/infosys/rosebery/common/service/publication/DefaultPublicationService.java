@@ -36,6 +36,8 @@ public class DefaultPublicationService implements PublicationService {
                 } else {
                     instance = newInstance(serviceClass);
                 }
+
+                instance = new QueuedPublicationService(instance);
             }
 
         }

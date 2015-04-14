@@ -6,6 +6,10 @@
         <aspect name="at.ac.tuwien.infosys.rosebery.storm.aspect.SpoutCreateSequenceAspect" />
         <aspect name="at.ac.tuwien.infosys.rosebery.storm.aspect.BoltSequencePassOnAspect" />
 
+        <concrete-aspect name="at.ac.tuwien.infosys.rosebery.storm.aspect.ExecutionProfileAspect" extends="at.ac.tuwien.infosys.rosebery.profiling.AbstractProfilingAspect">
+            <pointcut name="scope" expression="execution(* backtype.storm.topology.IBasicBolt.execute(..))" />
+        </concrete-aspect>
+
         <weaver options="-verbose">
             <exclude within="backtype.storm.metric.api..*" />
         </weaver>

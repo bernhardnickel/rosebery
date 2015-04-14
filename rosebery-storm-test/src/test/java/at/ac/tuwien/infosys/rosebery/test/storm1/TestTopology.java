@@ -17,7 +17,7 @@ import backtype.storm.topology.TopologyBuilder;
  * -javaagent:/opt/aspectj/lib/aspectjweaver.jar
  * -Drosebery.nodeFactory=at.ac.tuwien.infosys.rosebery.common.factory.node.PropertyFileNodeFactory
  * -Drosebery.nodeFactoryFile=src/test/resources/at/ac/tuwien/infosys/rosebery/test/storm1/nodes.properties
- * -Drosebery.publicationService=<className>
+ * -Drosebery.publicationService=at.ac.tuwien.infosys.rosebery.common.service.publication.DefaultPublicationService:at.ac.tuwien.infosys.rosebery.transport.jmx.MeasurementNotificationService
  *
  */
 public class TestTopology {
@@ -25,6 +25,10 @@ public class TestTopology {
         //Set system properties in code for test
         System.setProperty("rosebery.nodeFactory", "at.ac.tuwien.infosys.rosebery.common.factory.node.PropertyFileNodeFactory");
         System.setProperty("rosebery.nodeFactoryFile", "src/test/resources/at/ac/tuwien/infosys/rosebery/test/storm1/nodes.properties");
+
+        System.setProperty("rosebery.publicationService", "at.ac.tuwien.infosys.rosebery.common.service.publication.DefaultPublicationService:at.ac.tuwien.infosys.rosebery.transport.jmx.MeasurementNotificationService");
+
+        System.setProperty("rosebery.profilingInterval", "100");
 
         startStorm();
     }
@@ -49,7 +53,7 @@ public class TestTopology {
                 return "testScenario-" + System.currentTimeMillis();
             }
         });
-        spout.setScenario(ScenarioDsl.evaluate("loop(loop(10, 100), 10)"));
+        spout.setScenario(ScenarioDsl.evaluate("loop(loop(100, 100), 10)"));
 
         builder.setSpout("test-spout", spout);
 

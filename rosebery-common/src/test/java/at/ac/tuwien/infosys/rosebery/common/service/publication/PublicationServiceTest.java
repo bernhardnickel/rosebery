@@ -1,5 +1,6 @@
 package at.ac.tuwien.infosys.rosebery.common.service.publication;
 
+import at.ac.tuwien.infosys.rosebery.common.model.measurement.RuntimePerformance;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +22,9 @@ public class PublicationServiceTest {
 
 
         assertNotNull(publicationService);
-        assertTrue(publicationService instanceof DefaultPublicationService);
+        assertTrue(publicationService instanceof QueuedPublicationService);
+
+        publicationService.publish(new RuntimePerformance());
     }
 
 }

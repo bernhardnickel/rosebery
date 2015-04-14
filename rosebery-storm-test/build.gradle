@@ -3,5 +3,6 @@ description = 'rosbery test project'
 dependencies {
     compile project(':rosebery-common')
     compile project(':rosebery-storm')
-    // compile project(':rosebery-transport-jmx')
+    compile project(':rosebery-profiling')
+    compile project(':rosebery-transport-jmx')
 }

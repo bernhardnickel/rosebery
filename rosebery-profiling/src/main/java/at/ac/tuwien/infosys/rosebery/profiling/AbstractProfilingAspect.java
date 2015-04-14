@@ -10,6 +10,9 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
 import java.util.Set;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
@@ -17,13 +20,19 @@ import java.util.Set;
 @Aspect
 public abstract class AbstractProfilingAspect {
 
+    private static final String INTERVAL_SYSTEM_PROPERTY = "rosebery.profilingInterval";
+
+    private long interval = Long.valueOf(System.getProperty(INTERVAL_SYSTEM_PROPERTY));
+
+    private ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 100,10, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
+
     @Pointcut
     public abstract void scope();
 
 
     @Around("scope() && this(jpo)")
     public Object around(ProceedingJoinPoint pjp, Object jpo) throws Throwable {
-        ProfilingThread profilingThread = startProfiling(Thread.currentThread().getId(), 10l);
+        ProfilingRunnable profilingThread = startProfiling(Thread.currentThread().getId(), interval);
 
         ExecutionProfile ep = new ExecutionProfile();
 
@@ -41,16 +50,16 @@ public abstract class AbstractProfilingAspect {
         return meter.getResult();
     }
 
-    private ProfilingThread startProfiling(long threadId, long interval) {
-        ProfilingThread thread = new ProfilingThread();
-        thread.setThreadId(threadId);
-        thread.setInterval(interval);
-        thread.start();
-        return thread;
+    private ProfilingRunnable startProfiling(long threadId, long interval) {
+        ProfilingRunnable runnable = new ProfilingRunnable();
+        runnable.setThreadId(threadId);
+        runnable.setInterval(interval);
+        executor.execute(runnable);
+        return runnable;
     }
 
-    private Set<ResourceSnapshot> stopProfiling(ProfilingThread thread) {
-        thread.interrupt();
-        return thread.getResult();
+    private Set<ResourceSnapshot> stopProfiling(ProfilingRunnable runnable) {
+        runnable.interrupt();
+        return runnable.getResult();
     }
 }
