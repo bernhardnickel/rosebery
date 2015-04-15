@@ -1,12 +1,23 @@
 package at.ac.tuwien.infosys.rosebery.common.service.publication;
 
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.Measurement;
+import at.ac.tuwien.infosys.rosebery.common.service.publication.concurrent.FireAndForgetPublicationService;
+import at.ac.tuwien.infosys.rosebery.common.service.publication.concurrent.ThreadPoolPublicationService;
+
+import java.util.Enumeration;
 
 /**
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class DefaultPublicationService implements PublicationService {
     private static final String PUBLICATION_SERVICE_SYSTEM_PROPERTY = "rosebery.publicationService";
+    private static final String PUBLICATION_MODE_SYSTEM_PROPERTY = "rosebery.publicationMode";
+
+    private enum PublicationMode {
+        FIREFORGET,
+        QUEUE,
+        THREADPOOL
+    }
 
     protected static PublicationService instance = null;
 
@@ -37,7 +48,15 @@ public class DefaultPublicationService implements PublicationService {
                     instance = newInstance(serviceClass);
                 }
 
-                instance = new QueuedPublicationService(instance);
+                String publicationMode = System.getProperty(PUBLICATION_MODE_SYSTEM_PROPERTY);
+
+                if (PublicationMode.FIREFORGET.name().equals(publicationMode)) {
+                    instance = new FireAndForgetPublicationService(instance);
+                } else if (PublicationMode.QUEUE.name().equals(publicationMode)) {
+                    instance = new QueuedPublicationService(instance);
+                } else if (PublicationMode.THREADPOOL.name().equals(publicationMode)) {
+                    instance = new ThreadPoolPublicationService(instance, 1, 10);
+                }
             }
 
         }

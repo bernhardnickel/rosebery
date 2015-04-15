@@ -30,6 +30,8 @@ public class TestTopology {
 
         System.setProperty("rosebery.profilingInterval", "100");
 
+        System.setProperty("rosebery.publicationMode", "QUEUE");
+
         startStorm();
     }
 
