@@ -1,4 +1,5 @@
 description = 'JVM monitoring classes for rosebery'
 
 dependencies {
+    compile project(':rosebery-common')
 }
