@@ -34,3 +34,21 @@ CREATE TABLE resource_snapshot (
     CONSTRAINT rs_pk PRIMARY KEY (ep_id, nanotime),
     CONSTRAINT rs_ep_fk FOREIGN KEY (ep_id) REFERENCES execution_profile(rtp_id)
 )
+
+CREATE TABLE jvm_profile (
+    id IDENTITY PRIMARY KEY,
+    node_id BIGINT,
+    nanotime BIGINT,
+    process_cpu_time BIGINT,
+    process_cpu_load_max DOUBLE,
+    process_cpu_load_avg DOUBLE,
+    process_cpu_load_min DOUBLE,
+    system_cpu_load_max DOUBLE,
+    system_cpu_load_avg DOUBLE,
+    system_cpu_load_min DOUBLE,
+    heap_max BIGINT,
+    heap_usage_max DOUBLE,
+    heap_usage_avg DOUBLE,
+    heap_usage_min DOUBLE,
+    CONSTRAINT jvmp_unique UNIQUE (node_id, nanotime)
+)

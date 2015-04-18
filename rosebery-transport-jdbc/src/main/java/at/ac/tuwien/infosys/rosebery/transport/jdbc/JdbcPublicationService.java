@@ -1,11 +1,13 @@
 package at.ac.tuwien.infosys.rosebery.transport.jdbc;
 
+import at.ac.tuwien.infosys.rosebery.common.model.measurement.JvmProfile;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.Measurement;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.RuntimePerformance;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.profiling.ExecutionProfile;
 import at.ac.tuwien.infosys.rosebery.common.service.publication.PublicationService;
 import at.ac.tuwien.infosys.rosebery.transport.jdbc.ds.PropertyDataSource;
 import at.ac.tuwien.infosys.rosebery.transport.jdbc.insertion.ExecutionProfileInsertionObject;
+import at.ac.tuwien.infosys.rosebery.transport.jdbc.insertion.JvmProfileInsertionObject;
 import at.ac.tuwien.infosys.rosebery.transport.jdbc.insertion.MeasurementInsertionObject;
 import at.ac.tuwien.infosys.rosebery.transport.jdbc.insertion.RuntimePerformanceInsertionObject;
 
@@ -42,6 +44,7 @@ public class JdbcPublicationService implements PublicationService {
 
         insertionObjectMap.put(RuntimePerformance.class, new RuntimePerformanceInsertionObject(getConnection()));
         insertionObjectMap.put(ExecutionProfile.class, new ExecutionProfileInsertionObject(getConnection()));
+        insertionObjectMap.put(JvmProfile.class, new JvmProfileInsertionObject(getConnection()));
     }
 
     public JdbcPublicationService(DataSource dataSource) {

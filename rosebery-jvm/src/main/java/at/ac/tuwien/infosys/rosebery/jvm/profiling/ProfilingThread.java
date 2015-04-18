@@ -1,4 +1,4 @@
-package at.ac.tuwien.infosys.rosbery.jvm.profiling;
+package at.ac.tuwien.infosys.rosebery.jvm.profiling;
 
 import at.ac.tuwien.infosys.rosebery.common.factory.node.NodeFactory;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.JvmProfile;
@@ -7,7 +7,6 @@ import com.sun.management.OperatingSystemMXBean;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
-import java.lang.management.ThreadMXBean;
 import java.util.Map;
 
 /**
@@ -61,8 +60,6 @@ public class ProfilingThread implements Runnable {
 
     private JvmProfile snapshot() {
         JvmProfile profile = new JvmProfile();
-
-
 
         profile.setNode(NodeFactory.getNodeFactory().getNode());
         profile.setNanoTime(System.nanoTime());

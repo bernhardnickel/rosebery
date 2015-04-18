@@ -1,6 +1,7 @@
 package at.ac.tuwien.infosys.rosebery.transport.jdbc;
 
 import at.ac.tuwien.infosys.rosebery.common.model.Node;
+import at.ac.tuwien.infosys.rosebery.common.model.measurement.JvmProfile;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.RuntimePerformance;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.profiling.ExecutionProfile;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.profiling.ResourceSnapshot;
@@ -103,6 +104,26 @@ public class JdbcPublicationServiceTest {
 
         service.publish(ep);
 
+
+        JvmProfile jvmProfile = new JvmProfile();
+        jvmProfile.setNode(new Node());
+        jvmProfile.getNode().setNodeId("nodeId");
+        jvmProfile.getNode().setNodePurpose("nodePurpose");
+        jvmProfile.setNanoTime(0l);
+        jvmProfile.setProcessCpuTime(10l);
+        jvmProfile.setProcessCpuLoadMax(0.1);
+        jvmProfile.setProcessCpuLoadAvg(0.05);
+        jvmProfile.setProcessCpuLoadMin(0.0);
+        jvmProfile.setSystemCpuLoadMax(0.2);
+        jvmProfile.setSystemCpuLoadAvg(0.1);
+        jvmProfile.setSystemCpuLoadMin(0.0);
+        jvmProfile.setHeapMax(10l);
+        jvmProfile.setHeapUsageMax(10);
+        jvmProfile.setHeapUsageAvg(5);
+        jvmProfile.setHeapUsageMin(0);
+
+        service.publish(jvmProfile);
+
         Connection con = DriverManager.getConnection(URL);
 
         PreparedStatement pst = con.prepareStatement("SELECT * FROM node");
@@ -153,6 +174,29 @@ public class JdbcPublicationServiceTest {
 
 
         assertFalse(rs.next());
+        rs.close();
+        pst.close();
+
+        pst = con.prepareStatement("SELECT * FROM jvm_profile");
+        rs = pst.executeQuery();
+
+        assertTrue(rs.next());
+        assertEquals(1, rs.getLong(1));
+        assertEquals(1, rs.getLong(2));
+        assertEquals(0, rs.getLong(3));
+        assertEquals(10, rs.getLong(4));
+        assertEquals(new Double(0.1), new Double(rs.getDouble(5)));
+        assertEquals(new Double(0.05), new Double(rs.getDouble(6)));
+        assertEquals(new Double(0.0), new Double(rs.getDouble(7)));
+        assertEquals(new Double(0.2), new Double(rs.getDouble(8)));
+        assertEquals(new Double(0.1), new Double(rs.getDouble(9)));
+        assertEquals(new Double(0.0), new Double(rs.getDouble(10)));
+        assertEquals(10, rs.getLong(11));
+        assertEquals(new Double(10), new Double(rs.getDouble(12)));
+        assertEquals(new Double(5), new Double(rs.getDouble(13)));
+        assertEquals(new Double(0), new Double(rs.getDouble(14)));
+
+
         rs.close();
         pst.close();
 

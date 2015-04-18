@@ -1,4 +1,4 @@
-package at.ac.tuwien.infosys.rosbery.jvm.profiling;
+package at.ac.tuwien.infosys.rosebery.jvm.profiling;
 
 import com.sun.management.OperatingSystemMXBean;
 

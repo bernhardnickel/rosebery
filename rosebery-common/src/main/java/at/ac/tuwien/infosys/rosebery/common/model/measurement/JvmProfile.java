@@ -120,4 +120,9 @@ public class JvmProfile implements Measurement {
     public void setHeapUsageAvg(double heapUsageAvg) {
         this.heapUsageAvg = heapUsageAvg;
     }
+
+    @Override
+    public String toString() {
+        return "JvmProfile[" + node + "," + nanoTime + "," + processCpuTime + "," + processCpuLoadMax + "," + processCpuLoadAvg + "," + processCpuLoadMin + "," + systemCpuLoadMax + "," + systemCpuLoadAvg + "," + systemCpuLoadMin + "," + heapMax + "," + heapUsageMax + "," + heapUsageAvg + "," + heapUsageMin + "]";
+    }
 }
