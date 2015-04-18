@@ -3,12 +3,8 @@ package at.ac.tuwien.infosys.rosebery.transport.jms;
 import at.ac.tuwien.infosys.rosebery.common.model.Node;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.RuntimePerformance;
 import at.ac.tuwien.infosys.rosebery.common.service.publication.PublicationService;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import javax.jms.*;
-import javax.naming.InitialContext;
 
 /**
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
