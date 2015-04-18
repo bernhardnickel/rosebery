@@ -1,0 +1,7 @@
+description = 'JMS transport classes for rosebery'
+
+dependencies {
+    compile project(':rosebery-common')
+    compile 'javax.jms:jms-api:1.1-rev-1'
+    testCompile 'org.apache.activemq:activemq-core:5.7.0'
+}
