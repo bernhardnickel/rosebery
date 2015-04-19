@@ -3,4 +3,5 @@ description = 'JDBC transport classes for rosebery'
 dependencies {
     compile project(':rosebery-common')
     testRuntime 'com.h2database:h2:1.4.186'
+    testRuntime 'org.postgresql:postgresql:9.4-1201-jdbc41'
 }
