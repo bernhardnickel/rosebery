@@ -18,7 +18,7 @@ public class TestFactory implements Factory<String> {
         StringBuilder str= new StringBuilder();
 
         for (int i = 0; i < 10; i++) {
-            int n = random.nextInt(1000);
+            int n = random.nextInt(500000);
             for(int j = 0; j < n; j++) {
                 str.append(UUID.randomUUID().toString());
             }

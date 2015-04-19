@@ -27,9 +27,10 @@ public class ExtractionBolt extends BaseBasicBolt {
 
         Matcher m = pattern.matcher(str);
 
+        int i = 0;
         while (m.find()) {
             String[] xy = m.group().replace("a[", "").replace("]", "").split(",");
-            nodes.add(new Node(Integer.valueOf(xy[0]), Integer.valueOf(xy[1])));
+            nodes.add(new Node(i++, Integer.valueOf(xy[0]), Integer.valueOf(xy[1])));
         }
 
         collector.emit(new Values(nodes));
