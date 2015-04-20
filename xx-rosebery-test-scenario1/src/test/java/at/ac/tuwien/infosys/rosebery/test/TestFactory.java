@@ -4,8 +4,6 @@ import at.ac.tuwien.infosys.rosebery.scenario.Factory;
 
 import java.util.Random;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
@@ -18,7 +16,7 @@ public class TestFactory implements Factory<String> {
         StringBuilder str= new StringBuilder();
 
         for (int i = 0; i < 10; i++) {
-            int n = random.nextInt(500000);
+            int n = random.nextInt(100000);
             for(int j = 0; j < n; j++) {
                 str.append(UUID.randomUUID().toString());
             }

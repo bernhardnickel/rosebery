@@ -1,0 +1,27 @@
+<aspectj>
+    <aspects>
+
+        <aspect name="at.ac.tuwien.infosys.rosebery.storm.aspect.SequencedTupleAspect" />
+        <aspect name="at.ac.tuwien.infosys.rosebery.storm.aspect.BoltSequencedRuntimePerformanceAspect" />
+        <aspect name="at.ac.tuwien.infosys.rosebery.storm.aspect.SpoutCreateSequenceAspect" />
+        <aspect name="at.ac.tuwien.infosys.rosebery.storm.aspect.BoltSequencePassOnAspect" />
+
+        <concrete-aspect name="at.ac.tuwien.infosys.rosebery.storm.aspect.SpoutRuntimePerformanceAspect" extends="at.ac.tuwien.infosys.rosebery.common.aspect.AbstractRuntimePerformanceAspect">
+            <pointcut name="scope" expression="execution(* backtype.storm.spout.ISpout.nextTuple(..))" />
+        </concrete-aspect>
+
+        <!--
+        <concrete-aspect name="at.ac.tuwien.infosys.rosebery.storm.aspect.ExecutionProfileAspect" extends="at.ac.tuwien.infosys.rosebery.profiling.AbstractProfilingAspect">
+            <pointcut name="scope" expression="execution(* backtype.storm.topology.IBasicBolt.execute(..))" />
+        </concrete-aspect>
+        -->
+
+        <concrete-aspect name="at.ac.tuwien.infosys.rosebery.jvm.profiling.aspect.LoadProfilingAspectImpl" extends="at.ac.tuwien.infosys.rosebery.jvm.profiling.aspect.LoadProfilingAspect">
+            <pointcut name="scope" expression="execution(* at.ac.tuwien.infosys.rosebery.test.ScenarioTopology.start(..))" />
+        </concrete-aspect>
+
+        <weaver options="-verbose">
+            <exclude within="backtype.storm.metric.api..*" />
+        </weaver>
+    </aspects>
+</aspectj>

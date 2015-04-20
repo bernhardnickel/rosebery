@@ -3,6 +3,7 @@ package at.ac.tuwien.infosys.rosebery.storm.aspect;
 import at.ac.tuwien.infosys.rosebery.common.aspect.sequence.CreateSequenceAspect;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.DeclarePrecedence;
 import org.aspectj.lang.annotation.Pointcut;
 
 /**

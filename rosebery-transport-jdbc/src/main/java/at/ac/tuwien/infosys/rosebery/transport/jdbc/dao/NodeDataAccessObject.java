@@ -71,7 +71,7 @@ public class NodeDataAccessObject {
     }
 
     private Long insert(Node node)  throws SQLException {
-        PreparedStatement pst = connection.prepareStatement(INSERT);
+        PreparedStatement pst = connection.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
 
         pst.setString(1, node.getNodeId());
         pst.setString(2, node.getNodePurpose());

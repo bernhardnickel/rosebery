@@ -23,18 +23,22 @@ public class ScenarioTopology {
     public static void main(String... args) {
         //Set system properties in code for test
         System.setProperty("rosebery.nodeFactory", "at.ac.tuwien.infosys.rosebery.common.factory.node.PropertyFileNodeFactory");
-        System.setProperty("rosebery.nodeFactoryFile", "src/test/resources/at/ac/tuwien/infosys/rosebery/test/storm1/nodes.properties");
+        System.setProperty("rosebery.nodeFactoryFile", "src/test/resources/nodes.properties");
 
-        System.setProperty("rosebery.publicationService", "at.ac.tuwien.infosys.rosebery.common.service.publication.DefaultPublicationService:at.ac.tuwien.infosys.rosebery.transport.jmx.MeasurementNotificationService");
+        System.setProperty("rosebery.publicationService", "at.ac.tuwien.infosys.rosebery.common.service.publication.DefaultPublicationService:at.ac.tuwien.infosys.rosebery.transport.jdbc.JdbcPublicationService");
 
-        System.setProperty("rosebery.profilingInterval", "100");
+        System.setProperty("rosbery.jdbcConfiguration", "src/test/resources/jdbc.properties");
+
+        System.setProperty("rosebery.JvmProfilingInterval", "1000");
+        System.setProperty("rosebery.JvmProfilingPollingInterval", "100");
 
         System.setProperty("rosebery.publicationMode", "QUEUE");
 
-        startStorm();
+        ScenarioTopology topology = new ScenarioTopology();
+        topology.start();
     }
 
-    protected static void startStorm() {
+    protected void start() {
         LocalCluster cluster = new LocalCluster();
 
         Config config = new Config();
@@ -44,13 +48,13 @@ public class ScenarioTopology {
         cluster.submitTopology("scenario1-topology", config, createTestTopology());
     }
 
-    protected static StormTopology createTestTopology() {
+    protected StormTopology createTestTopology() {
         TopologyBuilder builder = new TopologyBuilder();
 
         RoseberySpout<String> spout = new RoseberySpout<>();
         spout.setFieldName("inputString");
         spout.setFactory(new TestFactory());
-        spout.setScenario(ScenarioDsl.evaluate("loop(1, 10)"));
+        spout.setScenario(ScenarioDsl.evaluate("loop(25, 10)"));
 
         builder.setSpout("scenario1-spout", spout);
 

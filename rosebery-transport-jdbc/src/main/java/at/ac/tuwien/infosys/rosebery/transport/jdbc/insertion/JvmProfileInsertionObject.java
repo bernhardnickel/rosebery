@@ -28,7 +28,7 @@ public class JvmProfileInsertionObject implements MeasurementInsertionObject<Jvm
     public Long insert(JvmProfile jvmProfile) {
         PreparedStatement pst = null;
         try {
-            pst = connection.prepareStatement(SQL);
+            pst = connection.prepareStatement(SQL, PreparedStatement.RETURN_GENERATED_KEYS);
             pst.setLong(1, nodeDao.getNodeId(jvmProfile.getNode()));
             pst.setLong(2, jvmProfile.getNanoTime());
 

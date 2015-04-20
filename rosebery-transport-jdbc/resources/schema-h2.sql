@@ -3,7 +3,7 @@ CREATE TABLE node (
     node_id VARCHAR(50),
     node_purpose VARCHAR(50),
     CONSTRAINT node_unique_ct UNIQUE (node_id, node_purpose)
-)
+);
 
 CREATE TABLE runtime_performance (
     id IDENTITY PRIMARY KEY,
@@ -15,12 +15,12 @@ CREATE TABLE runtime_performance (
     result VARCHAR(15),
     CONSTRAINT rtp_unique UNIQUE (node_id, starttime, endtime),
     CONSTRAINT rtp_node_fk FOREIGN KEY (node_id) REFERENCES node(id)
-)
+);
 
 CREATE TABLE execution_profile (
     rtp_id BIGINT PRIMARY KEY,
     CONSTRAINT rtp_ep_fk FOREIGN KEY (rtp_id) REFERENCES runtime_performance(id)
-)
+);
 
 CREATE TABLE resource_snapshot (
     ep_id BIGINT,
@@ -33,7 +33,7 @@ CREATE TABLE resource_snapshot (
     heap_usage BIGINT,
     CONSTRAINT rs_pk PRIMARY KEY (ep_id, nanotime),
     CONSTRAINT rs_ep_fk FOREIGN KEY (ep_id) REFERENCES execution_profile(rtp_id)
-)
+);
 
 CREATE TABLE jvm_profile (
     id IDENTITY PRIMARY KEY,
@@ -51,4 +51,4 @@ CREATE TABLE jvm_profile (
     heap_usage_avg DOUBLE,
     heap_usage_min DOUBLE,
     CONSTRAINT jvmp_unique UNIQUE (node_id, nanotime)
-)
+);
