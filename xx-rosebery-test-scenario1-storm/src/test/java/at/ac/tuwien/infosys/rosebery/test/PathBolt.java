@@ -25,7 +25,7 @@ public class PathBolt extends BaseBasicBolt {
 
         List<List<Integer>> paths = new ArrayList<>();
 
-        permute(nodes, new ArrayList<Integer>(), 0, paths);
+        permute(nodes, new ArrayList<>(), 0, paths);
 
         String id = UUID.randomUUID().toString();
 

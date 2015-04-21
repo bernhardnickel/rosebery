@@ -54,7 +54,7 @@ public class ScenarioTopology {
         RoseberySpout<String> spout = new RoseberySpout<>();
         spout.setFieldName("inputString");
         spout.setFactory(new TestFactory());
-        spout.setScenario(ScenarioDsl.evaluate("loop(25, 10)"));
+        spout.setScenario(ScenarioDsl.evaluate("loop(1, 10)"));
 
         builder.setSpout("scenario1-spout", spout);
 

@@ -1,0 +1,22 @@
+<aspectj>
+    <aspects>
+        <aspect name="at.ac.tuwien.infosys.rosebery.spark.aspect.FunctionSequencedRuntimePerformanceAspect"  />
+        <aspect name="at.ac.tuwien.infosys.rosebery.spark.aspect.ReceiverCreateSequenceAspect"  />
+        <aspect name="at.ac.tuwien.infosys.rosebery.spark.aspect.FunctionSequencePassOnAspect"  />
+        <aspect name="at.ac.tuwien.infosys.rosebery.spark.aspect.FlatMapFunctionSequencePassOnAspect"  />
+        <aspect name="at.ac.tuwien.infosys.rosebery.test.aspect.SequencedObjectsAspect"  />
+        <aspect name="at.ac.tuwien.infosys.rosebery.spark.aspect.ReceiverRuntimePerformanceAspect" />
+
+        <concrete-aspect name="at.ac.tuwien.infosys.rosebery.jvm.profiling.aspect.LoadProfilingAspectImpl" extends="at.ac.tuwien.infosys.rosebery.jvm.profiling.aspect.LoadProfilingAspect">
+            <pointcut name="scope" expression="execution(* at.ac.tuwien.infosys.rosebery.test.ScenarioRunner.run(..))" />
+        </concrete-aspect>
+
+    </aspects>
+
+    <weaver options="-verbose">
+        <exclude within="scala..*" />
+        <exclude within="org.groovy..*" />
+        <exclude within="org.spark-project..*" />
+        <exclude within="org.apache.spark..*" />
+    </weaver>
+</aspectj>
