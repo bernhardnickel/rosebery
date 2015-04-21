@@ -4,6 +4,7 @@
         <aspect name="at.ac.tuwien.infosys.rosebery.spark.aspect.ReceiverCreateSequenceAspect"  />
         <aspect name="at.ac.tuwien.infosys.rosebery.spark.aspect.FunctionSequencePassOnAspect"  />
         <aspect name="at.ac.tuwien.infosys.rosebery.test.spark1.aspect.SequencedTestObject"  />
+        <aspect name="at.ac.tuwien.infosys.rosebery.spark.aspect.ReceiverRuntimePerformanceAspect" />
     </aspects>
     <weaver options="-verbose">
         <exclude within="scala..*" />
