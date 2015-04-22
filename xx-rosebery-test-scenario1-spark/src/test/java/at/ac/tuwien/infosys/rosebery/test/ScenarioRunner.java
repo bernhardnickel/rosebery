@@ -30,7 +30,7 @@ public class ScenarioRunner {
         StringBuilder publicationServices = new StringBuilder();
 
         publicationServices.append("at.ac.tuwien.infosys.rosebery.transport.log4j.Log4jPublicationService");
-        //publicationServices.append(":").append("at.ac.tuwien.infosys.rosebery.transport.jdbc.JdbcPublicationService");
+        publicationServices.append(":").append("at.ac.tuwien.infosys.rosebery.transport.jdbc.JdbcPublicationService");
 
         System.setProperty("rosebery.publicationService", publicationServices.toString());
 
@@ -53,11 +53,11 @@ public class ScenarioRunner {
 
         conf.setAppName("sparkTestApplication");
 
-        JavaStreamingContext ssc = new JavaStreamingContext(conf, new Duration(1000));
+        JavaStreamingContext ssc = new JavaStreamingContext(conf, new Duration(7000));
 
         Receiver<NodeString> receiver = new RoseberyReceiver<NodeString>(StorageLevel.MEMORY_ONLY_SER(),
                 new TestFactory(),
-                ScenarioDsl.evaluate("loop(1, 10)")
+                ScenarioDsl.evaluate("loop(25, 10)")
         );
 
         JavaDStream<NodeString> testStream = ssc.receiverStream(receiver);
