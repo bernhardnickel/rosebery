@@ -27,7 +27,12 @@ public class ScenarioRunner {
         System.setProperty("rosebery.nodeFactory", "at.ac.tuwien.infosys.rosebery.common.factory.node.PropertyFileNodeFactory");
         System.setProperty("rosebery.nodeFactoryFile", "src/test/resources/nodes.properties");
 
-        System.setProperty("rosebery.publicationService", "at.ac.tuwien.infosys.rosebery.common.service.publication.DefaultPublicationService:at.ac.tuwien.infosys.rosebery.transport.jdbc.JdbcPublicationService");
+        StringBuilder publicationServices = new StringBuilder();
+
+        publicationServices.append("at.ac.tuwien.infosys.rosebery.transport.log4j.Log4jPublicationService");
+        //publicationServices.append(":").append("at.ac.tuwien.infosys.rosebery.transport.jdbc.JdbcPublicationService");
+
+        System.setProperty("rosebery.publicationService", publicationServices.toString());
 
         System.setProperty("rosbery.jdbcConfiguration", "src/test/resources/jdbc.properties");
 

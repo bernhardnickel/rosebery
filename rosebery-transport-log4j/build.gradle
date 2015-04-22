@@ -1,0 +1,6 @@
+description = 'JDBC transport classes for rosebery'
+
+dependencies {
+    compile project(':rosebery-common')
+    compile 'log4j:log4j:1.2.17'
+}

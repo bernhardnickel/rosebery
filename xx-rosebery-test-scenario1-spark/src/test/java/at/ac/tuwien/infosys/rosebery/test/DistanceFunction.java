@@ -3,6 +3,7 @@ package at.ac.tuwien.infosys.rosebery.test;
 import at.ac.tuwien.infosys.rosebery.test.model.DistanceObject;
 import at.ac.tuwien.infosys.rosebery.test.model.Node;
 import at.ac.tuwien.infosys.rosebery.test.model.PathObject;
+import org.apache.log4j.Logger;
 import org.apache.spark.api.java.function.Function;
 
 import java.util.HashMap;
@@ -16,8 +17,6 @@ public class DistanceFunction implements Function<PathObject, DistanceObject> {
 
     @Override
     public DistanceObject call(PathObject pathObject) throws Exception {
-        System.out.println("Recevied path object: " + pathObject);
-
         String id = pathObject.getId();
         List<Node> nodes = pathObject.getNodes();
         List<List<Integer>> paths = pathObject.getPaths();

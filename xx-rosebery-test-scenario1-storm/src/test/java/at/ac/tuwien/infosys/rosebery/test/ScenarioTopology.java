@@ -25,7 +25,12 @@ public class ScenarioTopology {
         System.setProperty("rosebery.nodeFactory", "at.ac.tuwien.infosys.rosebery.common.factory.node.PropertyFileNodeFactory");
         System.setProperty("rosebery.nodeFactoryFile", "src/test/resources/nodes.properties");
 
-        System.setProperty("rosebery.publicationService", "at.ac.tuwien.infosys.rosebery.common.service.publication.DefaultPublicationService:at.ac.tuwien.infosys.rosebery.transport.jdbc.JdbcPublicationService");
+        StringBuilder publicationServices = new StringBuilder();
+
+        publicationServices.append("at.ac.tuwien.infosys.rosebery.transport.log4j.Log4jPublicationService");
+        publicationServices.append(":").append("at.ac.tuwien.infosys.rosebery.transport.jdbc.JdbcPublicationService");
+
+        System.setProperty("rosebery.publicationService", publicationServices.toString());
 
         System.setProperty("rosbery.jdbcConfiguration", "src/test/resources/jdbc.properties");
 
@@ -44,6 +49,7 @@ public class ScenarioTopology {
         Config config = new Config();
         config.setDebug(true);
         config.setMaxTaskParallelism(3);
+        config.put(Config.TOPOLOGY_DEBUG, false);
 
         cluster.submitTopology("scenario1-topology", config, createTestTopology());
     }

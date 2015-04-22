@@ -3,6 +3,7 @@ package at.ac.tuwien.infosys.rosebery.test;
 import at.ac.tuwien.infosys.rosebery.test.model.Node;
 import at.ac.tuwien.infosys.rosebery.test.model.NodeList;
 import at.ac.tuwien.infosys.rosebery.test.model.NodeString;
+import org.apache.log4j.Logger;
 import org.apache.spark.api.java.function.Function;
 
 import java.util.ArrayList;
@@ -18,8 +19,6 @@ public class ExtractionFunction implements Function<NodeString, NodeList> {
 
     @Override
     public NodeList call(NodeString nodeString) throws Exception {
-        System.out.println("Received node string: " + nodeString);
-
         List<Node> nodes = new ArrayList<>();
 
         Matcher m = pattern.matcher(nodeString.getNodeString());

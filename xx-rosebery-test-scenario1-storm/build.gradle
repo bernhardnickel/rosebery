@@ -6,5 +6,6 @@ dependencies {
     compile project(':rosebery-storm')
     compile project(':rosebery-jvm')
     compile project(':rosebery-transport-jdbc')
+    compile project(':rosebery-transport-log4j')
     testRuntime 'org.postgresql:postgresql:9.4-1201-jdbc41'
 }

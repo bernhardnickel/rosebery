@@ -3,6 +3,7 @@ package at.ac.tuwien.infosys.rosebery.test;
 import at.ac.tuwien.infosys.rosebery.test.model.Node;
 import at.ac.tuwien.infosys.rosebery.test.model.NodeList;
 import at.ac.tuwien.infosys.rosebery.test.model.PathObject;
+import org.apache.log4j.Logger;
 import org.apache.spark.api.java.function.FlatMapFunction;
 
 import java.util.ArrayList;
@@ -13,13 +14,10 @@ import java.util.UUID;
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class PathFunction implements FlatMapFunction<NodeList, PathObject> {
-
     private static final int MAX_PATHS = 200000;
 
     @Override
     public Iterable<PathObject> call(NodeList nodeList) throws Exception {
-        System.out.println("Received node list:" + nodeList);
-
         List<PathObject> result = new ArrayList<>();
         List<List<Integer>> paths = new ArrayList<>();
 
