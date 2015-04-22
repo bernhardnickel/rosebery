@@ -7,6 +7,9 @@ import at.ac.tuwien.infosys.rosebery.common.service.publication.concurrent.Threa
 import java.util.Enumeration;
 
 /**
+ * Default publication service that serves as both, default implementation
+ * (write measurement to System.out) and singleton for all Publication services
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class DefaultPublicationService implements PublicationService {
@@ -24,6 +27,10 @@ public class DefaultPublicationService implements PublicationService {
     private DefaultPublicationService() {
     }
 
+    /**
+     * Returnes a new instance of a publication service
+     * @return
+     */
     public static PublicationService getInstance() {
 
         if (instance == null) {
@@ -32,22 +39,29 @@ public class DefaultPublicationService implements PublicationService {
                     return instance;
                 }
 
+                //Get service class from system property
                 String serviceClass = System.getProperty(PUBLICATION_SERVICE_SYSTEM_PROPERTY);
 
+                // If null, use the default publication service
                 if (serviceClass == null) {
                     instance = new DefaultPublicationService();
                 } else if (serviceClass.contains(":")) {
+                    // if there are multiple classes, use a multi
+                    // instance publication service
                     MultiInstancePublicationService mInstance = new MultiInstancePublicationService();
 
+                    //Initialize all publication service
                     for (String iServiceClass : serviceClass.split(":")) {
                         mInstance.addPublicationService(newInstance(iServiceClass));
                     }
 
                     instance = mInstance;
                 } else {
+                    // if there is just one publication service, use that instance
                     instance = newInstance(serviceClass);
                 }
 
+                //Check publication mdoe
                 String publicationMode = System.getProperty(PUBLICATION_MODE_SYSTEM_PROPERTY);
 
                 if (PublicationMode.FIREFORGET.name().equals(publicationMode)) {

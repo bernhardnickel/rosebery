@@ -3,6 +3,10 @@ package at.ac.tuwien.infosys.rosebery.common.model;
 import java.io.Serializable;
 
 /**
+ * Node object to identify measurements for nodes
+ * Has an id (e.g., hostname, ip address or simply a given id)
+ * and a purpose (description of what the node is actually doing)
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class Node implements Serializable {

@@ -6,6 +6,10 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
+ * Queued publication service
+ * All measurements are put into a queue synchronously
+ * A thread polls the queue and publishes the measurements asynchronously
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class QueuedPublicationService implements PublicationService {

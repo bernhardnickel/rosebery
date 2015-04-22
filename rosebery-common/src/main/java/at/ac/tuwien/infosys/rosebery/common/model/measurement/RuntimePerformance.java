@@ -3,6 +3,12 @@ package at.ac.tuwien.infosys.rosebery.common.model.measurement;
 import at.ac.tuwien.infosys.rosebery.common.model.Node;
 
 /**
+ * Runtime performance measurement:
+ * is assigned to a node,
+ * might be part of a sequence,
+ * has a start and endtime, duration is endtime-starttime
+ * and a result (OK or Exception)
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class RuntimePerformance implements Measurement {

@@ -3,6 +3,8 @@ package at.ac.tuwien.infosys.rosebery.common.model.measurement;
 import at.ac.tuwien.infosys.rosebery.common.model.Node;
 
 /**
+ * JvmProfile measurement
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class JvmProfile implements Measurement {

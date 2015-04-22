@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
+ * Node factory that reads node id and purpose of one or multiple nodes
+ * from a property file
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class PropertyFileNodeFactory implements NodeFactory {

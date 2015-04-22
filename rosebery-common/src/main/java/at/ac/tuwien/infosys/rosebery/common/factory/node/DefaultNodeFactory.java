@@ -3,6 +3,9 @@ package at.ac.tuwien.infosys.rosebery.common.factory.node;
 import at.ac.tuwien.infosys.rosebery.common.model.Node;
 
 /**
+ * Default node factory that either reads nodeId and nodePurpose from system properties
+ * or initializes an alternative node factory class
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class DefaultNodeFactory implements NodeFactory {
@@ -20,8 +23,11 @@ public class DefaultNodeFactory implements NodeFactory {
                     return instance;
                 }
 
+                // Get node factory system property
                 String factoryClass = System.getProperty(NODE_FACTORY_SYSTEM_PROPERTY);
 
+                // If an alternative node factory class is set, set the instance to the alternative node factory
+                // Otherwise use the default implementation
                 if (factoryClass == null) {
                     instance = new DefaultNodeFactory();
                 } else {

@@ -8,6 +8,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Thread pool publication service
+ * Uses a thread pool to publish measurements asynchronously
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class ThreadPoolPublicationService implements PublicationService {

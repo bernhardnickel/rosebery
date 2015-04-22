@@ -5,6 +5,9 @@ import at.ac.tuwien.infosys.rosebery.common.service.publication.PublicationServi
 import at.ac.tuwien.infosys.rosebery.common.service.publication.concurrent.PublicationRunnable;
 
 /**
+ * Fire and forget publication service
+ * Creates a new thread that publishes the measurement asynchronously
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class FireAndForgetPublicationService implements PublicationService {

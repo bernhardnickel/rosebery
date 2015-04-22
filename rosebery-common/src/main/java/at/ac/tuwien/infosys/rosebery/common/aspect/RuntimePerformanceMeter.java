@@ -5,6 +5,8 @@ import at.ac.tuwien.infosys.rosebery.common.model.measurement.RuntimePerformance
 import org.aspectj.lang.ProceedingJoinPoint;
 
 /**
+ * Meter class for measuring runtime perforamce
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class RuntimePerformanceMeter {
@@ -24,6 +26,14 @@ public class RuntimePerformanceMeter {
         meter(pjp, jpo, null);
     }
 
+    /**
+     * Method to measure runtime performance of a method
+     *
+     *
+     * @param pjp
+     * @param jpo
+     * @param sequence
+     */
     public void meter(ProceedingJoinPoint pjp, Object jpo, String sequence) {
         if (runtimePerformance == null) {
             runtimePerformance = new RuntimePerformance();

@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Publication service that calls it's child publication services
+ * one after another
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class MultiInstancePublicationService implements PublicationService {
