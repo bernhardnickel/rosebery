@@ -30,8 +30,8 @@ public class RuntimePerformanceInsertionObject implements MeasurementInsertionOb
             pst = connection.prepareStatement(SQL, PreparedStatement.RETURN_GENERATED_KEYS);
             pst.setLong(1, nodeDao.getNodeId(runtimePerformance.getNode()));
             pst.setString(2, runtimePerformance.getSequence());
-            pst.setLong(3, runtimePerformance.getNanoStarttime());
-            pst.setLong(4, runtimePerformance.getNanoEndtime());
+            pst.setLong(3, runtimePerformance.getStarttime());
+            pst.setLong(4, runtimePerformance.getEndtime());
             pst.setLong(5, runtimePerformance.getDuration());
             pst.setString(6, runtimePerformance.getExecutionResult().name());
 

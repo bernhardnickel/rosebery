@@ -39,8 +39,11 @@ public class RuntimePerformanceMeter {
             runtimePerformance = new RuntimePerformance();
         }
 
-        runtimePerformance.setNanoStarttime(System.nanoTime());
+
+        runtimePerformance.setStarttime(System.currentTimeMillis());
         runtimePerformance.setSequence(sequence);
+
+        long nanoStart = System.nanoTime();
 
         try {
             result = proceed(pjp);
@@ -48,7 +51,8 @@ public class RuntimePerformanceMeter {
             this.throwable = throwable;
         }
 
-        runtimePerformance.setNanoEndtime(System.nanoTime());
+        runtimePerformance.setDuration(System.nanoTime() - nanoStart);
+        runtimePerformance.setEndtime(System.currentTimeMillis());
         runtimePerformance.setExecutionResult(throwable == null ? RuntimePerformance.ExecutionResult.OK : RuntimePerformance.ExecutionResult.EXCEPTION);
 
         runtimePerformance.setNode(NodeFactory.getNodeFactory().getNode(jpo));

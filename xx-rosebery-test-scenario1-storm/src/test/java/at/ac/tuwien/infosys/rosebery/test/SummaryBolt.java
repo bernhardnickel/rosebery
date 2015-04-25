@@ -27,6 +27,8 @@ public class SummaryBolt extends BaseBasicBolt {
             logger.info("Found new min distance for id " + id + ": " + distance);
             minDistances.put(id, distance);
         }
+
+        logger.info(minDistances.size() + " min distance sequences found");
     }
 
     @Override

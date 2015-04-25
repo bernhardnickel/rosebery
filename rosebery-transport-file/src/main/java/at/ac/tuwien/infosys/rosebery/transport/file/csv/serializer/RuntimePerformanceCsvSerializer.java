@@ -14,8 +14,8 @@ public class RuntimePerformanceCsvSerializer implements Serializer<RuntimePerfor
         str.append(runtimePerformance.getNode().getNodeId()).append(';');
         str.append(runtimePerformance.getNode().getNodePurpose()).append(';');
         str.append(runtimePerformance.getSequence()).append(';');
-        str.append(runtimePerformance.getNanoStarttime()).append(';');
-        str.append(runtimePerformance.getNanoEndtime()).append(";");
+        str.append(runtimePerformance.getStarttime()).append(';');
+        str.append(runtimePerformance.getEndtime()).append(";");
         str.append(runtimePerformance.getDuration()).append(";");
         str.append(runtimePerformance.getExecutionResult());
 

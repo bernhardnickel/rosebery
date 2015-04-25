@@ -28,7 +28,7 @@ public class ScenarioTopology {
         StringBuilder publicationServices = new StringBuilder();
 
         publicationServices.append("at.ac.tuwien.infosys.rosebery.transport.log4j.Log4jPublicationService");
-        publicationServices.append(":").append("at.ac.tuwien.infosys.rosebery.transport.jdbc.JdbcPublicationService");
+        //publicationServices.append(":").append("at.ac.tuwien.infosys.rosebery.transport.jdbc.JdbcPublicationService");
 
         System.setProperty("rosebery.publicationService", publicationServices.toString());
 
@@ -60,7 +60,7 @@ public class ScenarioTopology {
         RoseberySpout<String> spout = new RoseberySpout<>();
         spout.setFieldName("inputString");
         spout.setFactory(new TestFactory());
-        spout.setScenario(ScenarioDsl.evaluate("loop(25, 10)"));
+        spout.setScenario(ScenarioDsl.evaluate("loop(25, 1000)"));
 
         builder.setSpout("scenario1-spout", spout);
 

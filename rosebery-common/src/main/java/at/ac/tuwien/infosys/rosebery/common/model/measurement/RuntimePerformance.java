@@ -17,11 +17,27 @@ public class RuntimePerformance implements Measurement {
     }
 
     private Node node;
-    private long nanoStarttime;
-    private long nanoEndtime;
+    private long starttime;
+    private long endtime;
+    private long duration;
     private String sequence;
     private ExecutionResult executionResult;
 
+    public long getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(long endtime) {
+        this.endtime = endtime;
+    }
+
+    public long getStarttime() {
+        return starttime;
+    }
+
+    public void setStarttime(long starttime) {
+        this.starttime = starttime;
+    }
 
     public Node getNode() {
         return node;
@@ -29,22 +45,6 @@ public class RuntimePerformance implements Measurement {
 
     public void setNode(Node node) {
         this.node = node;
-    }
-
-    public long getNanoStarttime() {
-        return nanoStarttime;
-    }
-
-    public void setNanoStarttime(long nanoStarttime) {
-        this.nanoStarttime = nanoStarttime;
-    }
-
-    public long getNanoEndtime() {
-        return nanoEndtime;
-    }
-
-    public void setNanoEndtime(long nanoEndtime) {
-        this.nanoEndtime = nanoEndtime;
     }
 
     public String getSequence() {
@@ -56,7 +56,11 @@ public class RuntimePerformance implements Measurement {
     }
 
     public long getDuration() {
-        return nanoEndtime - nanoStarttime;
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 
     public ExecutionResult getExecutionResult() {
@@ -69,6 +73,6 @@ public class RuntimePerformance implements Measurement {
 
     @Override
     public String toString() {
-        return "RuntimePerformance[" + node + "," + sequence + "," + nanoStarttime + "," + nanoEndtime + "," + getDuration() + "," + executionResult + "]";
+        return "RuntimePerformance[" + node + "," + sequence + "," + starttime + "," + endtime + "," + duration + "," + executionResult + "]";
     }
 }

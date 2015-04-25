@@ -30,7 +30,7 @@ public class ScenarioRunner {
         StringBuilder publicationServices = new StringBuilder();
 
         publicationServices.append("at.ac.tuwien.infosys.rosebery.transport.log4j.Log4jPublicationService");
-        publicationServices.append(":").append("at.ac.tuwien.infosys.rosebery.transport.jdbc.JdbcPublicationService");
+        //publicationServices.append(":").append("at.ac.tuwien.infosys.rosebery.transport.jdbc.JdbcPublicationService");
 
         System.setProperty("rosebery.publicationService", publicationServices.toString());
 
@@ -50,14 +50,15 @@ public class ScenarioRunner {
         //Should be set > 1 if there is a receiver. Why? No idea! :D
         conf.setMaster("local[2]");
         conf.set("spark.streaming.concurrentJobs", "3");
+        conf.set("spark.streaming.unpersist", "false");
 
         conf.setAppName("sparkTestApplication");
 
         JavaStreamingContext ssc = new JavaStreamingContext(conf, new Duration(7000));
 
-        Receiver<NodeString> receiver = new RoseberyReceiver<NodeString>(StorageLevel.MEMORY_ONLY_SER(),
+        Receiver<NodeString> receiver = new RoseberyReceiver<NodeString>(StorageLevel.MEMORY_AND_DISK_SER(),
                 new TestFactory(),
-                ScenarioDsl.evaluate("loop(25, 10)")
+                ScenarioDsl.evaluate("loop(25, 1000)")
         );
 
         JavaDStream<NodeString> testStream = ssc.receiverStream(receiver);
@@ -65,8 +66,7 @@ public class ScenarioRunner {
         testStream.map(
                 new ExtractionFunction()).flatMap(
                 new PathFunction()).map(
-                new DistanceFunction()).map(
-                new SummaryFunction()).print();
+                new DistanceFunction()).foreachRDD(new SummaryFunction());
 
         ssc.start();
         ssc.awaitTermination();

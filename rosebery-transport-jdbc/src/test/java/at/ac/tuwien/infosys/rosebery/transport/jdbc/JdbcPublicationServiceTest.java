@@ -85,8 +85,8 @@ public class JdbcPublicationServiceTest {
         ep.getNode().setNodeId("nodeId");
         ep.getNode().setNodePurpose("nodePurpose");
 
-        ep.setNanoStarttime(0l);
-        ep.setNanoEndtime(10l);
+        ep.setStarttime(0l);
+        ep.setStarttime(10l);
         ep.setExecutionResult(RuntimePerformance.ExecutionResult.OK);
 
         ep.setSnapshots(new TreeSet<>());
