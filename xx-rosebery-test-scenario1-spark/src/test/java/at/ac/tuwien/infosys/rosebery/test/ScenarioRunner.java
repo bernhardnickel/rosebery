@@ -58,7 +58,7 @@ public class ScenarioRunner {
 
         Receiver<NodeString> receiver = new RoseberyReceiver<NodeString>(StorageLevel.MEMORY_AND_DISK_SER(),
                 new TestFactory(),
-                ScenarioDsl.evaluate("loop(25, 1000)")
+                ScenarioDsl.evaluate("loop(25, 10)")
         );
 
         JavaDStream<NodeString> testStream = ssc.receiverStream(receiver);

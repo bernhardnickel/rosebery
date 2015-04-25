@@ -29,7 +29,7 @@ public class SummaryFunction implements Function<JavaRDD<DistanceObject>, Void> 
                 logger.info("Found new min distance for id " + id + ": " + distance);
 
                 minDistances.put(id, distance);
-            }logger.info(minDistances.size() + " min distance sequences found");
+            }
         }
 
         logger.info(minDistances.size() + " min distance sequences found");
