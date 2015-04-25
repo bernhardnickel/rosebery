@@ -8,7 +8,7 @@ import at.ac.tuwien.infosys.rosebery.common.model.Node;
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class JvmProfile implements Measurement {
-    private long nanoTime;
+    private long timestamp;
     private Node node;
 
     private double systemCpuLoadMax, systemCpuLoadMin, systemCpuLoadAvg;
@@ -19,12 +19,12 @@ public class JvmProfile implements Measurement {
     private long heapMax;
     private double heapUsageMax, heapUsageMin, heapUsageAvg;
 
-    public long getNanoTime() {
-        return nanoTime;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public void setNanoTime(long nanoTime) {
-        this.nanoTime = nanoTime;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public Node getNode() {
@@ -125,6 +125,6 @@ public class JvmProfile implements Measurement {
 
     @Override
     public String toString() {
-        return "JvmProfile[" + node + "," + nanoTime + "," + processCpuTime + "," + processCpuLoadMax + "," + processCpuLoadAvg + "," + processCpuLoadMin + "," + systemCpuLoadMax + "," + systemCpuLoadAvg + "," + systemCpuLoadMin + "," + heapMax + "," + heapUsageMax + "," + heapUsageAvg + "," + heapUsageMin + "]";
+        return "JvmProfile[" + node + "," + timestamp + "," + processCpuTime + "," + processCpuLoadMax + "," + processCpuLoadAvg + "," + processCpuLoadMin + "," + systemCpuLoadMax + "," + systemCpuLoadAvg + "," + systemCpuLoadMin + "," + heapMax + "," + heapUsageMax + "," + heapUsageAvg + "," + heapUsageMin + "]";
     }
 }

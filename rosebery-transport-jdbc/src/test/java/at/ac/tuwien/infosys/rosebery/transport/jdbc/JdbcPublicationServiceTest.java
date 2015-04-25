@@ -92,7 +92,7 @@ public class JdbcPublicationServiceTest {
         ep.setSnapshots(new TreeSet<>());
 
         ResourceSnapshot snapshot = new ResourceSnapshot();
-        snapshot.setNanoTime(0l);
+        snapshot.setTimestamp(0l);
         snapshot.setSystemCpuLoad(1d);
         snapshot.setProcessCpuLoad(0.5d);
         snapshot.setProcessCpuTime(2l);
@@ -109,7 +109,7 @@ public class JdbcPublicationServiceTest {
         jvmProfile.setNode(new Node());
         jvmProfile.getNode().setNodeId("nodeId");
         jvmProfile.getNode().setNodePurpose("nodePurpose");
-        jvmProfile.setNanoTime(0l);
+        jvmProfile.setTimestamp(0l);
         jvmProfile.setProcessCpuTime(10l);
         jvmProfile.setProcessCpuLoadMax(0.1);
         jvmProfile.setProcessCpuLoadAvg(0.05);

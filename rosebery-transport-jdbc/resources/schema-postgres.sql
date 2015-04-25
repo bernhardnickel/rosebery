@@ -24,21 +24,21 @@ CREATE TABLE execution_profile (
 
 CREATE TABLE resource_snapshot (
     ep_id BIGINT,
-    nanotime BIGINT,
+    timestamp BIGINT,
     system_cpu_load DOUBLE PRECISION,
     process_cpu_load DOUBLE PRECISION,
     process_cpu_time BIGINT,
     thread_cpu_time BIGINT,
     heap_max BIGINT,
     heap_usage BIGINT,
-    CONSTRAINT rs_pk PRIMARY KEY (ep_id, nanotime),
+    CONSTRAINT rs_pk PRIMARY KEY (ep_id, timestamp),
     CONSTRAINT rs_ep_fk FOREIGN KEY (ep_id) REFERENCES execution_profile(rtp_id)
 );
 
 CREATE TABLE jvm_profile (
     id BIGSERIAL PRIMARY KEY,
     node_id BIGINT,
-    nanotime BIGINT,
+    timestamp BIGINT,
     process_cpu_time BIGINT,
     process_cpu_load_max DOUBLE PRECISION,
     process_cpu_load_avg DOUBLE PRECISION,
@@ -50,5 +50,5 @@ CREATE TABLE jvm_profile (
     heap_usage_max DOUBLE PRECISION,
     heap_usage_avg DOUBLE PRECISION,
     heap_usage_min DOUBLE PRECISION,
-    CONSTRAINT jvmp_unique UNIQUE (node_id, nanotime)
+    CONSTRAINT jvmp_unique UNIQUE (node_id, timestamp)
 );

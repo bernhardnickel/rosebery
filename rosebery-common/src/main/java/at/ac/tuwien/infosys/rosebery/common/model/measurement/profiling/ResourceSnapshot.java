@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class ResourceSnapshot implements Serializable, Comparable<ResourceSnapshot> {
-    private long nanoTime;
+    private long timestamp;
 
     private double systemCpuLoad;
     private double processCpuLoad;
@@ -22,12 +22,12 @@ public class ResourceSnapshot implements Serializable, Comparable<ResourceSnapsh
     private long heapMax;
     private long heapUsage;
 
-    public long getNanoTime() {
-        return nanoTime;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public void setNanoTime(long nanoTime) {
-        this.nanoTime = nanoTime;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public double getSystemCpuLoad() {
@@ -80,11 +80,11 @@ public class ResourceSnapshot implements Serializable, Comparable<ResourceSnapsh
 
     @Override
     public int compareTo(ResourceSnapshot o) {
-        return Long.compare(nanoTime, o.nanoTime);
+        return Long.compare(timestamp, o.timestamp);
     }
 
     @Override
     public String toString() {
-        return "ResourceSnapshot[" + nanoTime + "," + systemCpuLoad + "," + processCpuLoad + "," + processCpuTime + "," + threadCpuTime + "," + heapMax + "," + heapUsage + "]";
+        return "ResourceSnapshot[" + timestamp + "," + systemCpuLoad + "," + processCpuLoad + "," + processCpuTime + "," + threadCpuTime + "," + heapMax + "," + heapUsage + "]";
     }
 }

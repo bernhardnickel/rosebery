@@ -28,7 +28,7 @@ public class ScenarioTopology {
         StringBuilder publicationServices = new StringBuilder();
 
         publicationServices.append("at.ac.tuwien.infosys.rosebery.transport.log4j.Log4jPublicationService");
-        //publicationServices.append(":").append("at.ac.tuwien.infosys.rosebery.transport.jdbc.JdbcPublicationService");
+        publicationServices.append(":").append("at.ac.tuwien.infosys.rosebery.transport.jdbc.JdbcPublicationService");
 
         System.setProperty("rosebery.publicationService", publicationServices.toString());
 

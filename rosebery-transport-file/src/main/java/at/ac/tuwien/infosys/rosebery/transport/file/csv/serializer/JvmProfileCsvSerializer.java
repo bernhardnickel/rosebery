@@ -14,7 +14,7 @@ public class JvmProfileCsvSerializer implements Serializer<JvmProfile> {
 
         str.append(jvmProfile.getNode().getNodeId()).append(';');
         str.append(jvmProfile.getNode().getNodePurpose()).append(';');
-        str.append(jvmProfile.getNanoTime()).append(";");
+        str.append(jvmProfile.getTimestamp()).append(";");
         str.append(jvmProfile.getSystemCpuLoadMax()).append(";");
         str.append(jvmProfile.getSystemCpuLoadMin()).append(";");
         str.append(jvmProfile.getSystemCpuLoadAvg()).append(";");

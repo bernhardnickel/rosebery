@@ -62,7 +62,7 @@ public class ProfilingThread implements Runnable {
         JvmProfile profile = new JvmProfile();
 
         profile.setNode(NodeFactory.getNodeFactory().getNode());
-        profile.setNanoTime(System.nanoTime());
+        profile.setTimestamp(System.currentTimeMillis());
 
         profile.setProcessCpuTime(osMXBean.getProcessCpuTime() - lastProcessCPUTime);
         profile.setHeapMax(memoryMXBean.getHeapMemoryUsage().getMax());

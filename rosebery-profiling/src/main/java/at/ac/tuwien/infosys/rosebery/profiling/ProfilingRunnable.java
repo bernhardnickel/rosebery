@@ -57,7 +57,7 @@ public class ProfilingRunnable implements Runnable {
         rs.setHeapMax(memoryMXBean.getHeapMemoryUsage().getMax());
         rs.setHeapUsage(memoryMXBean.getHeapMemoryUsage().getUsed());
 
-        rs.setNanoTime(System.nanoTime());
+        rs.setTimestamp(System.currentTimeMillis());
         snapshots.add(rs);
     }
 

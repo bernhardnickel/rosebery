@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class ExecutionProfileInsertionObject implements MeasurementInsertionObject<ExecutionProfile> {
 
     private static final String EP_INSERT_SQL = "INSERT INTO execution_profile (rtp_id) VALUES(?)";
-    private static final String RS_INSERT_SQL = "INSERT INTO resource_snapshot (ep_id, nanotime, system_cpu_load, process_cpu_load, process_cpu_time, thread_cpu_time, heap_max, heap_usage) VALUES (?,?,?,?,?,?,?,?)";
+    private static final String RS_INSERT_SQL = "INSERT INTO resource_snapshot (ep_id, timestamp, system_cpu_load, process_cpu_load, process_cpu_time, thread_cpu_time, heap_max, heap_usage) VALUES (?,?,?,?,?,?,?,?)";
 
     private Connection connection;
     private RuntimePerformanceInsertionObject rtpInsertionObject;
@@ -65,7 +65,7 @@ public class ExecutionProfileInsertionObject implements MeasurementInsertionObje
             pst = connection.prepareStatement(RS_INSERT_SQL);
 
             pst.setLong(1, epId);
-            pst.setLong(2, snapshot.getNanoTime());
+            pst.setLong(2, snapshot.getTimestamp());
             pst.setDouble(3, snapshot.getSystemCpuLoad());
             pst.setDouble(4, snapshot.getProcessCpuLoad());
             pst.setLong(5, snapshot.getProcessCpuTime());

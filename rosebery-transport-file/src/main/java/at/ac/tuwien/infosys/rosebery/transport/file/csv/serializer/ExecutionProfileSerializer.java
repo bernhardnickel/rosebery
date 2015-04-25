@@ -19,7 +19,7 @@ public class ExecutionProfileSerializer implements Serializer<ExecutionProfile> 
 
         if (executionProfile.getSnapshots() != null) {
             for (ResourceSnapshot resourceSnapshot : executionProfile.getSnapshots()) {
-                str.append(resourceSnapshot.getNanoTime()).append(";");
+                str.append(resourceSnapshot.getTimestamp()).append(";");
                 str.append(resourceSnapshot.getSystemCpuLoad()).append(";");
                 str.append(resourceSnapshot.getProcessCpuLoad()).append(";");
                 str.append(resourceSnapshot.getProcessCpuTime()).append(";");
