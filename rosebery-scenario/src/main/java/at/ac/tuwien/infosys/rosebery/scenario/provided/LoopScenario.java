@@ -5,6 +5,10 @@ import at.ac.tuwien.infosys.rosebery.scenario.PopulationService;
 import at.ac.tuwien.infosys.rosebery.scenario.Scenario;
 
 /**
+ * Loop scenario
+ * Runs the scenario multiple times
+ * optional with a sleep time in between
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class LoopScenario<T> implements Scenario<T> {

@@ -51,7 +51,9 @@ public class RuntimePerformanceMeter {
             this.throwable = throwable;
         }
 
+        // Set duration in nanotime
         runtimePerformance.setDuration(System.nanoTime() - nanoStart);
+
         runtimePerformance.setEndtime(System.currentTimeMillis());
         runtimePerformance.setExecutionResult(throwable == null ? RuntimePerformance.ExecutionResult.OK : RuntimePerformance.ExecutionResult.EXCEPTION);
 

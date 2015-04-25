@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
+ * Loads profiling configuration from a properties file
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class ProfilingConfiguration {

@@ -10,6 +10,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
+ * Runnable for profiling a pointcut execution
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class ProfilingRunnable implements Runnable {

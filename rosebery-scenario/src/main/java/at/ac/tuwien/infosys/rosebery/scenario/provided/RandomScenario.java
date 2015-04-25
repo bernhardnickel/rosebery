@@ -7,6 +7,9 @@ import at.ac.tuwien.infosys.rosebery.scenario.Scenario;
 import java.util.Random;
 
 /**
+ * Random scenario
+ * Takes a list of scenarios as input and runs one randomly
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class RandomScenario<T> implements Scenario<T> {

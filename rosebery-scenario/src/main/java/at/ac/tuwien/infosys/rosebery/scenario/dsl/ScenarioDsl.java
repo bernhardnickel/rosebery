@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
+ * Simple DSL implementation for scenarios
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class ScenarioDsl {

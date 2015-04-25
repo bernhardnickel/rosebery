@@ -8,6 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * List scenario
+ * Runs a list of given scenarios in the provided order
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 public class ListScenario<T> implements Scenario<T> {

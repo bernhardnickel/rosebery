@@ -15,6 +15,12 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Abstract aspect for profiling
+ * Starts a profiling thread during the execution of a pointcut
+ * Snapshots are taken in a configured interval
+ * at the end of the pointcut execution the thread is stopped
+ * and the resource snapshots get published
+ *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
 @Aspect
@@ -32,6 +38,7 @@ public abstract class AbstractProfilingAspect {
 
     @Around("scope() && this(jpo)")
     public Object around(ProceedingJoinPoint pjp, Object jpo) throws Throwable {
+        //Start profiling for this pointcut
         ProfilingRunnable profilingThread = startProfiling(Thread.currentThread().getId(), interval);
 
         ExecutionProfile ep = new ExecutionProfile();
@@ -39,6 +46,7 @@ public abstract class AbstractProfilingAspect {
         RuntimePerformanceMeter meter = new RuntimePerformanceMeter(ep);
         meter.meter(pjp, jpo);
 
+        //End and set resource snapshot from the profiling thread
         ep.setSnapshots(stopProfiling(profilingThread));
 
         PublicationService.getPublicationService().publish(ep);
