@@ -26,8 +26,6 @@ public class JmsTransportTest {
 
         RuntimePerformance rt = new RuntimePerformance();
         rt.setNode(new Node());
-        rt.setNanoStarttime(0);
-        rt.setNanoEndtime(10);
         rt.setSequence("asdf");
 
         service.publish(rt);
@@ -42,8 +40,6 @@ public class JmsTransportTest {
 
         RuntimePerformance rt = new RuntimePerformance();
         rt.setNode(new Node());
-        rt.setNanoStarttime(0);
-        rt.setNanoEndtime(10);
         rt.setSequence("asdf");
 
         service.publish(rt);

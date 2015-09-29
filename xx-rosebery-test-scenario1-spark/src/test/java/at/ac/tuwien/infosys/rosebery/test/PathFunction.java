@@ -6,6 +6,8 @@ import at.ac.tuwien.infosys.rosebery.test.model.PathObject;
 import org.apache.log4j.Logger;
 import org.apache.spark.api.java.function.FlatMapFunction;
 
+import java.nio.file.Paths;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -32,6 +34,7 @@ public class PathFunction implements FlatMapFunction<NodeList, PathObject> {
         }
 
         result.add(new PathObject(id, nodeList.getNodes(), paths.subList(i, paths.size())));
+
 
         return result;
     }

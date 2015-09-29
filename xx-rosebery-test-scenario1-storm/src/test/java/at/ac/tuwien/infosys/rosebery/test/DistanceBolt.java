@@ -37,9 +37,7 @@ public class DistanceBolt extends BaseBasicBolt {
                 Node a = nodeMap.get(path.get(i));
                 Node b = nodeMap.get(path.get(i + 1));
 
-                int xd = Math.max(a.getX(), b.getX()) - Math.min(a.getX(), b.getX());
-                int yd = Math.max(a.getY(), b.getY()) - Math.min(a.getY(), b.getY());
-                double distance = Math.sqrt(Math.pow(xd, 2d) + Math.pow(yd, 2));
+                double distance = distance(a, b);
 
                 pathDistance += distance;
             }
@@ -51,6 +49,13 @@ public class DistanceBolt extends BaseBasicBolt {
 
         collector.emit(new Values(id, minDistance));
     }
+
+    private double distance(Node a, Node b) {
+        int xd = Math.max(a.getX(), b.getX()) - Math.min(a.getX(), b.getX());
+        int yd = Math.max(a.getY(), b.getY()) - Math.min(a.getY(), b.getY());
+        return Math.sqrt(Math.pow(xd, 2d) + Math.pow(yd, 2));
+    }
+
 
 
     @Override
