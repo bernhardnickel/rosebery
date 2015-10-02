@@ -3,5 +3,5 @@ description = 'rosbery spark test project'
 dependencies {
     compile project(':rosebery-common')
     compile project(':rosebery-spark')
-    compile project(':rosebery-transport-jmx')
+    compile project(':rosebery-publication-jmx')
 }
