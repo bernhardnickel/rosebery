@@ -1,5 +1,6 @@
 package at.ac.tuwien.infosys.rosebery.common.service.publication;
 
+import at.ac.tuwien.infosys.rosebery.common.configuration.Configuration;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.Measurement;
 import at.ac.tuwien.infosys.rosebery.common.service.publication.concurrent.FireAndForgetPublicationService;
 import at.ac.tuwien.infosys.rosebery.common.service.publication.concurrent.ThreadPoolPublicationService;
@@ -40,7 +41,7 @@ public class DefaultPublicationService implements PublicationService {
                 }
 
                 //Get service class from system property
-                String serviceClass = System.getProperty(PUBLICATION_SERVICE_SYSTEM_PROPERTY);
+                String serviceClass = Configuration.getProperty(PUBLICATION_SERVICE_SYSTEM_PROPERTY);
 
                 // If null, use the default publication service
                 if (serviceClass == null) {
@@ -61,8 +62,8 @@ public class DefaultPublicationService implements PublicationService {
                     instance = newInstance(serviceClass);
                 }
 
-                //Check publication mdoe
-                String publicationMode = System.getProperty(PUBLICATION_MODE_SYSTEM_PROPERTY);
+                //Check publication mode
+                String publicationMode = Configuration.getProperty(PUBLICATION_MODE_SYSTEM_PROPERTY);
 
                 if (PublicationMode.FIREFORGET.name().equals(publicationMode)) {
                     instance = new FireAndForgetPublicationService(instance);

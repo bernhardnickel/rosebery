@@ -1,6 +1,7 @@
 package at.ac.tuwien.infosys.rosebery.profiling;
 
 import at.ac.tuwien.infosys.rosebery.common.aspect.RuntimePerformanceMeter;
+import at.ac.tuwien.infosys.rosebery.common.configuration.Configuration;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.profiling.ExecutionProfile;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.profiling.ResourceSnapshot;
 import at.ac.tuwien.infosys.rosebery.common.service.publication.PublicationService;
@@ -28,7 +29,7 @@ public abstract class AbstractProfilingAspect {
 
     private static final String INTERVAL_SYSTEM_PROPERTY = "rosebery.profilingInterval";
 
-    private long interval = Long.valueOf(System.getProperty(INTERVAL_SYSTEM_PROPERTY));
+    private long interval = Long.valueOf(Configuration.getProperty(INTERVAL_SYSTEM_PROPERTY));
 
     private ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 100,10, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
 

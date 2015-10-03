@@ -1,5 +1,6 @@
 package at.ac.tuwien.infosys.rosebery.jvm.profiling;
 
+import at.ac.tuwien.infosys.rosebery.common.configuration.Configuration;
 import at.ac.tuwien.infosys.rosebery.common.factory.node.NodeFactory;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.JvmProfile;
 import at.ac.tuwien.infosys.rosebery.common.service.publication.PublicationService;
@@ -28,8 +29,8 @@ public class ProfilingThread implements Runnable {
     private long interval;
 
     public ProfilingThread() {
-        interval = Long.valueOf(System.getProperty(JVM_PROFILING_INTERVAL_SYSTEM_PROPERTY));
-        long pollingInterval = Long.valueOf(System.getProperty(JVM_PROFILING_POLLING_INTERVAL_SYSTEM_PROPERTY));
+        interval = Long.valueOf(Configuration.getProperty(JVM_PROFILING_INTERVAL_SYSTEM_PROPERTY));
+        long pollingInterval = Long.valueOf(Configuration.getProperty(JVM_PROFILING_POLLING_INTERVAL_SYSTEM_PROPERTY));
 
         pollingRunnable = new PollingRunnable(pollingInterval);
         Thread pollingThread = new Thread(pollingRunnable);

@@ -1,12 +1,13 @@
 package at.ac.tuwien.infosys.rosebery.publication.file.csv;
 
+import at.ac.tuwien.infosys.rosebery.common.configuration.Configuration;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.JvmProfile;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.Measurement;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.RuntimePerformance;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.profiling.ExecutionProfile;
 import at.ac.tuwien.infosys.rosebery.publication.file.Serializer;
 import at.ac.tuwien.infosys.rosebery.publication.file.csv.serializer.JvmProfileCsvSerializer;
-import at.ac.tuwien.infosys.rosebery.publication.file.AbstractFileTransportService;
+import at.ac.tuwien.infosys.rosebery.publication.file.AbstractFilePublicationService;
 import at.ac.tuwien.infosys.rosebery.publication.file.csv.serializer.ExecutionProfileSerializer;
 import at.ac.tuwien.infosys.rosebery.publication.file.csv.serializer.RuntimePerformanceCsvSerializer;
 
@@ -17,7 +18,7 @@ import java.util.Map;
 /**
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
-public class CsvFileTransportService extends AbstractFileTransportService {
+public class CsvFilePublicationService extends AbstractFilePublicationService {
 
     private Map<Class<? extends Measurement>, Serializer<? extends Measurement>> map = new HashMap<Class<? extends Measurement>, Serializer<? extends Measurement>> ();
 
@@ -27,8 +28,8 @@ public class CsvFileTransportService extends AbstractFileTransportService {
 
     private String path;
 
-    public CsvFileTransportService() {
-        path = System.getProperty(DIR_SYSTEM_PROPERTY);
+    public CsvFilePublicationService() {
+        path = Configuration.getProperty(DIR_SYSTEM_PROPERTY);
 
         map.put(RuntimePerformance.class, new RuntimePerformanceCsvSerializer());
         map.put(ExecutionProfile.class, new ExecutionProfileSerializer());

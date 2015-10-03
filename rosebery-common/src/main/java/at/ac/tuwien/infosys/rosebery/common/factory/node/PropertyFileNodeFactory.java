@@ -1,5 +1,6 @@
 package at.ac.tuwien.infosys.rosebery.common.factory.node;
 
+import at.ac.tuwien.infosys.rosebery.common.configuration.Configuration;
 import at.ac.tuwien.infosys.rosebery.common.model.Node;
 
 import java.io.FileInputStream;
@@ -19,7 +20,7 @@ public class PropertyFileNodeFactory implements NodeFactory {
 
     public PropertyFileNodeFactory() {
         try {
-            p.load(new FileInputStream(System.getProperty(PROPERTY_FILE_SYSTEM_PROPERTY)));
+            p.load(new FileInputStream(Configuration.getProperty(PROPERTY_FILE_SYSTEM_PROPERTY)));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

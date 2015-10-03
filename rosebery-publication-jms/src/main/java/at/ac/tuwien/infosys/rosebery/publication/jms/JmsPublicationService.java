@@ -1,5 +1,6 @@
 package at.ac.tuwien.infosys.rosebery.publication.jms;
 
+import at.ac.tuwien.infosys.rosebery.common.configuration.Configuration;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.Measurement;
 import at.ac.tuwien.infosys.rosebery.common.service.publication.PublicationService;
 
@@ -23,9 +24,9 @@ public class JmsPublicationService implements PublicationService {
         try {
             Context context = new InitialContext();
 
-            ConnectionFactory connectionFactory = (ConnectionFactory) context.lookup(System.getProperty(CONNECTION_FACTORY_RESOURCE_SYSTEM_PROPERTY));
+            ConnectionFactory connectionFactory = (ConnectionFactory) context.lookup(Configuration.getProperty(CONNECTION_FACTORY_RESOURCE_SYSTEM_PROPERTY));
             connection  = connectionFactory.createConnection();
-            destination = (Destination) context.lookup(System.getProperty(DESTINATION_RESOURCE_SYSTEM_PROPERTY));
+            destination = (Destination) context.lookup(Configuration.getProperty(DESTINATION_RESOURCE_SYSTEM_PROPERTY));
         } catch(NamingException | JMSException e) {
             throw new RuntimeException(e);
         }

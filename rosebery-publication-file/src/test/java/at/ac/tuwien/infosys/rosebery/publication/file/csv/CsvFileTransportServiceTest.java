@@ -22,7 +22,7 @@ public class CsvFileTransportServiceTest {
 
         Files.deleteIfExists(path);
 
-        CsvFileTransportService service = new CsvFileTransportService();
+        CsvFilePublicationService service = new CsvFilePublicationService();
 
         RuntimePerformance rt = new RuntimePerformance();
         rt.setNode(new Node());
@@ -48,7 +48,7 @@ public class CsvFileTransportServiceTest {
 
         Files.deleteIfExists(path);
 
-        CsvFileTransportService service = new CsvFileTransportService();
+        CsvFilePublicationService service = new CsvFilePublicationService();
 
         RuntimePerformance rt = new RuntimePerformance();
         rt.setNode(new Node());

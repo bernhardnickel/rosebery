@@ -1,5 +1,6 @@
 package at.ac.tuwien.infosys.rosebery.publication.jdbc;
 
+import at.ac.tuwien.infosys.rosebery.common.configuration.Configuration;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.JvmProfile;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.Measurement;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.RuntimePerformance;
@@ -34,7 +35,7 @@ public class JdbcPublicationService implements PublicationService {
         Properties properties = new Properties();
 
         try {
-            properties.load(new FileInputStream(System.getProperty(JDBC_CONFIG_SYSTEM_PROPERTY)));
+            properties.load(new FileInputStream(Configuration.getProperty(JDBC_CONFIG_SYSTEM_PROPERTY)));
         } catch (IOException e) {
             throw new RuntimeException();
         }

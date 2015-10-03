@@ -1,5 +1,7 @@
 package at.ac.tuwien.infosys.rosebery.profiling;
 
+import at.ac.tuwien.infosys.rosebery.common.configuration.Configuration;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -20,7 +22,7 @@ public class ProfilingConfiguration {
 
     private ProfilingConfiguration() {
         try {
-            properties.load(new FileInputStream(System.getProperty(PROFILING_CONFIG_SYSTEM_PROPERTY)));
+            properties.load(new FileInputStream(Configuration.getProperty(PROFILING_CONFIG_SYSTEM_PROPERTY)));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

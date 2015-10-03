@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
-public abstract class AbstractFileTransportService implements PublicationService {
+public abstract class AbstractFilePublicationService implements PublicationService {
 
     private Map<Class<? extends Measurement>, PrintStream> streams = new HashMap<>();
 

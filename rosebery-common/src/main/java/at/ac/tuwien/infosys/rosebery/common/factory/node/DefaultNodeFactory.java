@@ -1,5 +1,6 @@
 package at.ac.tuwien.infosys.rosebery.common.factory.node;
 
+import at.ac.tuwien.infosys.rosebery.common.configuration.Configuration;
 import at.ac.tuwien.infosys.rosebery.common.model.Node;
 
 /**
@@ -24,7 +25,7 @@ public class DefaultNodeFactory implements NodeFactory {
                 }
 
                 // Get node factory system property
-                String factoryClass = System.getProperty(NODE_FACTORY_SYSTEM_PROPERTY);
+                String factoryClass = Configuration.getProperty(NODE_FACTORY_SYSTEM_PROPERTY);
 
                 // If an alternative node factory class is set, set the instance to the alternative node factory
                 // Otherwise use the default implementation
@@ -55,8 +56,8 @@ public class DefaultNodeFactory implements NodeFactory {
     @Override
     public Node getNode() {
         Node node = new Node();
-        node.setNodeId(System.getProperty(NODE_ID_SYSTEM_PROPERTY));
-        node.setNodePurpose(System.getProperty(NODE_PURPOSE_SYSTEM_PROPERTY));
+        node.setNodeId(Configuration.getProperty(NODE_ID_SYSTEM_PROPERTY));
+        node.setNodePurpose(Configuration.getProperty(NODE_PURPOSE_SYSTEM_PROPERTY));
 
         return node;
     }
