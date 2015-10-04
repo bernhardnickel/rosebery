@@ -10,10 +10,10 @@ import at.ac.tuwien.infosys.rosebery.common.service.publication.concurrent.Publi
  *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
-public class FireAndForgetPublicationService implements PublicationService {
+public class ThreadPerTaskPublicationService implements PublicationService {
     private PublicationService delegate;
 
-    public FireAndForgetPublicationService(PublicationService delegate) {
+    public ThreadPerTaskPublicationService(PublicationService delegate) {
         this.delegate = delegate;
     }
 

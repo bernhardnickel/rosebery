@@ -2,10 +2,8 @@ package at.ac.tuwien.infosys.rosebery.common.service.publication;
 
 import at.ac.tuwien.infosys.rosebery.common.configuration.Configuration;
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.Measurement;
-import at.ac.tuwien.infosys.rosebery.common.service.publication.concurrent.FireAndForgetPublicationService;
+import at.ac.tuwien.infosys.rosebery.common.service.publication.concurrent.ThreadPerTaskPublicationService;
 import at.ac.tuwien.infosys.rosebery.common.service.publication.concurrent.ThreadPoolPublicationService;
-
-import java.util.Enumeration;
 
 /**
  * Default publication service that serves as both, default implementation
@@ -18,7 +16,7 @@ public class DefaultPublicationService implements PublicationService {
     private static final String PUBLICATION_MODE_SYSTEM_PROPERTY = "rosebery.publicationMode";
 
     private enum PublicationMode {
-        FIREFORGET,
+        THREADPERTASK,
         QUEUE,
         THREADPOOL
     }
@@ -65,10 +63,10 @@ public class DefaultPublicationService implements PublicationService {
                 //Check publication mode
                 String publicationMode = Configuration.getProperty(PUBLICATION_MODE_SYSTEM_PROPERTY);
 
-                if (PublicationMode.FIREFORGET.name().equals(publicationMode)) {
-                    instance = new FireAndForgetPublicationService(instance);
+                if (PublicationMode.THREADPERTASK.name().equals(publicationMode)) {
+                    instance = new ThreadPerTaskPublicationService(instance);
                 } else if (PublicationMode.QUEUE.name().equals(publicationMode)) {
-                    instance = new QueuedPublicationService(instance);
+                    instance = new QueuePublicationService(instance);
                 } else if (PublicationMode.THREADPOOL.name().equals(publicationMode)) {
                     instance = new ThreadPoolPublicationService(instance, 1, 10);
                 }

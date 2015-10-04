@@ -1,7 +1,7 @@
 package at.ac.tuwien.infosys.rosebery.common.service.publication;
 
 import at.ac.tuwien.infosys.rosebery.common.model.measurement.RuntimePerformance;
-import at.ac.tuwien.infosys.rosebery.common.service.publication.concurrent.FireAndForgetPublicationService;
+import at.ac.tuwien.infosys.rosebery.common.service.publication.concurrent.ThreadPerTaskPublicationService;
 import at.ac.tuwien.infosys.rosebery.common.service.publication.concurrent.ThreadPoolPublicationService;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class PublicationServiceTest {
 
 
         assertNotNull(publicationService);
-        assertTrue(publicationService instanceof FireAndForgetPublicationService);
+        assertTrue(publicationService instanceof ThreadPerTaskPublicationService);
 
         publicationService.publish(new RuntimePerformance());
     }
@@ -51,7 +51,7 @@ public class PublicationServiceTest {
 
 
         assertNotNull(publicationService);
-        assertTrue(publicationService instanceof QueuedPublicationService);
+        assertTrue(publicationService instanceof QueuePublicationService);
 
         publicationService.publish(new RuntimePerformance());
     }

@@ -12,11 +12,11 @@ import java.util.concurrent.LinkedBlockingQueue;
  *
  * @author Bernhard Nickel, e0925384, e0925384@student.tuwien.ac.at
  */
-public class QueuedPublicationService implements PublicationService {
+public class QueuePublicationService implements PublicationService {
 
     private final BlockingQueue<Measurement> queue = new LinkedBlockingQueue<>();
 
-    public QueuedPublicationService(PublicationService delegate) {
+    public QueuePublicationService(PublicationService delegate) {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
